@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --color-cream: #f7f3ed;
+  --color-sand: #ece1d3;
+  --color-sand-dark: #ddcab2;
+  --color-clay: #b07d62;
+  --color-clay-dark: #8f6149;
+  --color-sage: #7d8a6a;
+  --color-sage-dark: #5f6b50;
+  --color-bark: #41382f;
+  --color-stone: #786d61;
+
+  --font-serif: var(--font-display), Georgia, serif;
+  --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-bark);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+::selection {
+  background-color: var(--color-sand-dark);
+  color: var(--color-bark);
+}
+
+.form-input {
+  width: 100%;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-sand-dark);
+  background: #fff;
+  padding: 0.625rem 0.75rem;
+  color: var(--color-bark);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--color-clay);
+  box-shadow: 0 0 0 2px rgb(176 125 98 / 0.3);
+}

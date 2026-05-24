@@ -1,0 +1,71 @@
+// Prisma schema for the massage booking site.
+// Docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+// A massage type offered by the masseuse. Fully editable in the admin panel.
+model Service {
+  id          String    @id @default(cuid())
+  name        String
+  description String?
+  durationMin Int
+  priceEur    Float
+  active      Boolean   @default(true)
+  sortOrder   Int       @default(0)
+  createdAt   DateTime  @default(now())
+  bookings    Booking[]
+}
+
+// A recurring weekly working window. weekday: 0 = Sunday ... 6 = Saturday.
+// Multiple windows per weekday are allowed (e.g. morning + afternoon).
+model Availability {
+  id        String  @id @default(cuid())
+  weekday   Int
+  startTime String // "HH:MM"
+  endTime   String // "HH:MM"
+  active    Boolean @default(true)
+}
+
+// A single full day on which no bookings can be made (holiday / vacation).
+model BlockedDate {
+  id        String   @id @default(cuid())
+  date      String   @unique // "YYYY-MM-DD"
+  reason    String?
+  createdAt DateTime @default(now())
+}
+
+// A customer booking. Service details are snapshotted so history survives
+// edits or deletion of the underlying service.
+model Booking {
+  id            String   @id @default(cuid())
+  service       Service? @relation(fields: [serviceId], references: [id], onDelete: SetNull)
+  serviceId     String?
+  serviceName   String
+  date          String // "YYYY-MM-DD"
+  startTime     String // "HH:MM"
+  endTime       String // "HH:MM"
+  durationMin   Int
+  priceEur      Float
+  customerName  String
+  customerEmail String
+  customerPhone String
+  note          String?
+  status        String   @default("pending") // pending | confirmed | cancelled
+  createdAt     DateTime @default(now())
+
+  @@index([date])
+  @@index([status])
+}
+
+// Generic key/value store for site content and booking rules.
+model Setting {
+  key   String @id
+  value String
+}
