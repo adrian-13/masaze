@@ -12,7 +12,8 @@
     "db:deploy": "prisma migrate deploy",
     "db:reset": "prisma migrate reset",
     "db:seed": "tsx prisma/seed.ts",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "db:turso:deploy": "tsx scripts/deploy-migrations.ts"
   },
   "dependencies": {
     "@libsql/client": "^0.17.3",
