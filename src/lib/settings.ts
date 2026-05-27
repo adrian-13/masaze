@@ -16,6 +16,13 @@ export const DEFAULT_SETTINGS = {
   address: "Hlavná 1, 811 01 Bratislava",
   instagramUrl: "",
   facebookUrl: "",
+  // URL of the hero photo, shown inside the arch. Empty = a themed illustrated
+  // placeholder. Can be an absolute URL or a file in /public. Ships with a
+  // replaceable stock photo (public/hero.jpg).
+  heroImage: "/hero.jpg",
+  // Optional photo for the "O mne" section (portrait works best). Empty = no
+  // photo shown. Ships with a replaceable stock photo (public/about.jpg).
+  aboutImage: "/about.jpg",
   bookingIntro:
     "Vyberte si masáž, deň a voľný čas. Po odoslaní vás budem kontaktovať s potvrdením termínu.",
 

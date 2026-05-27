@@ -19,10 +19,8 @@ export default async function AdminServicesPage() {
         Spravujte ponuku masáží, ich dĺžku a ceny. Neaktívne služby sa na stránke nezobrazujú.
       </p>
 
-      <div className="mt-8 grid gap-6 lg:grid-cols-2">
-        <div className="lg:col-span-2">
-          <ServiceCreateForm />
-        </div>
+      <div className="mt-8 max-w-3xl space-y-5">
+        <ServiceCreateForm />
         {services.map((service) => (
           <ServiceRow key={service.id} service={service} />
         ))}

@@ -69,3 +69,13 @@ model Setting {
   key   String @id
   value String
 }
+
+// A client testimonial / review shown on the homepage. Fully editable in admin.
+model Testimonial {
+  id        String   @id @default(cuid())
+  author    String
+  text      String
+  active    Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+}

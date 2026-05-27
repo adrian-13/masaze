@@ -52,3 +52,39 @@ export function formatDateShort(dateISO: string): string {
     year: "numeric",
   }).format(dateFromISO(dateISO));
 }
+
+export interface OpeningHoursGroup {
+  days: string;
+  hours: string;
+}
+
+// Turns availability windows into a compact, public-facing opening-hours list,
+// grouping consecutive weekdays that share the same hours (Mon-first order).
+// e.g. [{ days: "Pondelok – Piatok", hours: "09:00–17:00" }, { days: "Sobota – Nedeľa", hours: "Zatvorené" }]
+export function formatOpeningHours(
+  windows: { weekday: number; startTime: string; endTime: string }[],
+): OpeningHoursGroup[] {
+  const byDay = new Map<number, string[]>();
+  for (const w of windows) {
+    const list = byDay.get(w.weekday) ?? [];
+    list.push(`${w.startTime}–${w.endTime}`);
+    byDay.set(w.weekday, list);
+  }
+  const perDay = WEEKDAY_ORDER.map((wd) => {
+    const list = (byDay.get(wd) ?? []).sort();
+    return { wd, hours: list.length > 0 ? list.join(", ") : "Zatvorené" };
+  });
+  const groups: { days: number[]; hours: string }[] = [];
+  for (const d of perDay) {
+    const last = groups[groups.length - 1];
+    if (last && last.hours === d.hours) last.days.push(d.wd);
+    else groups.push({ days: [d.wd], hours: d.hours });
+  }
+  return groups.map((g) => ({
+    days:
+      g.days.length === 1
+        ? WEEKDAYS_SK[g.days[0]]
+        : `${WEEKDAYS_SK[g.days[0]]} – ${WEEKDAYS_SK[g.days[g.days.length - 1]]}`,
+    hours: g.hours,
+  }));
+}

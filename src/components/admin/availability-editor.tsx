@@ -11,6 +11,18 @@ interface Window {
   endTime: string;
 }
 
+// Selectable times every 30 min from 06:00 to 22:00 — replaces the native
+// time picker for a consistent, themed look.
+const TIME_OPTIONS = (() => {
+  const out: string[] = [];
+  for (let m = 6 * 60; m <= 22 * 60; m += 30) {
+    out.push(
+      `${String(Math.floor(m / 60)).padStart(2, "0")}:${String(m % 60).padStart(2, "0")}`,
+    );
+  }
+  return out;
+})();
+
 export function AvailabilityEditor({ windows }: { windows: Window[] }) {
   const [state, formAction, pending] = useActionState<ActionState, FormData>(
     addAvailability,
@@ -25,10 +37,10 @@ export function AvailabilityEditor({ windows }: { windows: Window[] }) {
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-3">
+    <div className="grid gap-8 lg:grid-cols-[20rem_1fr] lg:gap-12">
       <form
         action={formAction}
-        className="rounded-2xl border border-sand-dark/60 bg-white/60 p-5 lg:col-span-1"
+        className="self-start rounded-2xl border border-sand-dark/60 bg-white/60 p-5"
       >
         <h2 className="text-lg text-bark">Pridať pracovný čas</h2>
         <p className="mt-1 text-sm text-stone">
@@ -47,11 +59,19 @@ export function AvailabilityEditor({ windows }: { windows: Window[] }) {
         <div className="mt-3 grid grid-cols-2 gap-3">
           <label className="block">
             <span className="mb-1 block text-sm font-medium text-bark">Od</span>
-            <input name="startTime" type="time" defaultValue="09:00" required className="form-input" />
+            <select name="startTime" defaultValue="09:00" required className="form-input">
+              {TIME_OPTIONS.map((t) => (
+                <option key={t} value={t}>{t}</option>
+              ))}
+            </select>
           </label>
           <label className="block">
             <span className="mb-1 block text-sm font-medium text-bark">Do</span>
-            <input name="endTime" type="time" defaultValue="17:00" required className="form-input" />
+            <select name="endTime" defaultValue="17:00" required className="form-input">
+              {TIME_OPTIONS.map((t) => (
+                <option key={t} value={t}>{t}</option>
+              ))}
+            </select>
           </label>
         </div>
         {state?.error && (
@@ -62,41 +82,46 @@ export function AvailabilityEditor({ windows }: { windows: Window[] }) {
         <button
           type="submit"
           disabled={pending}
-          className="mt-4 w-full rounded-full bg-clay px-5 py-2.5 text-sm font-semibold text-cream hover:bg-clay-dark disabled:opacity-50"
+          className="mt-4 w-full rounded-full bg-clay px-5 py-2.5 text-sm font-semibold text-cream transition-colors hover:bg-clay-dark disabled:opacity-50"
         >
-          {pending ? "Pridávam…" : "Pridať"}
+          {pending ? "Pridávam…" : "Pridať pracovný čas"}
         </button>
       </form>
 
-      <div className="space-y-3 lg:col-span-2">
+      <div className="divide-y divide-sand-dark/50 overflow-hidden rounded-2xl border border-sand-dark/60 bg-white/50">
         {WEEKDAY_ORDER.map((wd) => {
           const list = (byDay.get(wd) ?? []).sort((a, b) =>
             a.startTime.localeCompare(b.startTime),
           );
+          const closed = list.length === 0;
           return (
             <div
               key={wd}
-              className="flex flex-wrap items-center gap-3 rounded-2xl border border-sand-dark/60 bg-white/60 px-5 py-4"
+              className={`flex flex-wrap items-center gap-3 px-5 py-4 ${
+                closed ? "opacity-70" : ""
+              }`}
             >
               <span className="w-24 font-medium text-bark">{WEEKDAYS_SK[wd]}</span>
-              {list.length === 0 ? (
-                <span className="text-sm text-stone">Zatvorené</span>
+              {closed ? (
+                <span className="text-sm italic text-stone/80">Zatvorené</span>
               ) : (
                 <div className="flex flex-wrap gap-2">
                   {list.map((w) => (
                     <span
                       key={w.id}
-                      className="inline-flex items-center gap-2 rounded-full bg-sand px-3 py-1 text-sm text-bark"
+                      className="inline-flex items-center gap-2 rounded-full bg-clay/10 py-1 pl-3 pr-1.5 text-sm font-medium text-clay-dark"
                     >
                       {w.startTime}–{w.endTime}
-                      <form action={deleteAvailability} className="inline">
+                      <form action={deleteAvailability} className="inline-flex">
                         <input type="hidden" name="id" value={w.id} />
                         <button
                           type="submit"
                           aria-label="Odstrániť"
-                          className="text-stone hover:text-red-700"
+                          className="grid h-5 w-5 place-items-center rounded-full text-clay/70 transition-colors hover:bg-clay/20 hover:text-clay-dark"
                         >
-                          ✕
+                          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <path d="M6 6l12 12M18 6 6 18" strokeLinecap="round" />
+                          </svg>
                         </button>
                       </form>
                     </span>

@@ -2,6 +2,7 @@
 
 import { useRef, useState } from "react";
 import { formatDateLong, formatDuration, formatPrice } from "@/lib/format";
+import { Calendar } from "@/components/calendar";
 
 interface ServiceOption {
   id: string;
@@ -53,6 +54,8 @@ export function BookingForm({
   const [slotsReason, setSlotsReason] = useState<string | undefined>();
   const [slotsLoading, setSlotsLoading] = useState(false);
   const [startTime, setStartTime] = useState("");
+  const [monthAvail, setMonthAvail] = useState<Set<string>>(new Set());
+  const [monthLoading, setMonthLoading] = useState(false);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -65,6 +68,7 @@ export function BookingForm({
   const [success, setSuccess] = useState<SuccessSummary | null>(null);
 
   const requestId = useRef(0);
+  const monthReqId = useRef(0);
   const selectedService = services.find((s) => s.id === serviceId);
 
   // Fetch available slots for a service + date. Called from the date picker so
@@ -92,6 +96,25 @@ export function BookingForm({
       }
     } finally {
       if (id === requestId.current) setSlotsLoading(false);
+    }
+  }
+
+  // Fetch which days of a month are bookable, to drive the calendar.
+  async function loadMonth(svcId: string, year: number, month: number) {
+    if (!svcId) return;
+    const id = ++monthReqId.current;
+    setMonthLoading(true);
+    try {
+      const res = await fetch(
+        `/api/availability?serviceId=${svcId}&year=${year}&month=${month}`,
+      );
+      const data: { availableDates?: string[] } = await res.json();
+      if (id !== monthReqId.current) return;
+      setMonthAvail(new Set(data.availableDates ?? []));
+    } catch {
+      if (id === monthReqId.current) setMonthAvail(new Set());
+    } finally {
+      if (id === monthReqId.current) setMonthLoading(false);
     }
   }
 
@@ -129,8 +152,11 @@ export function BookingForm({
 
   if (success) {
     return (
-      <div className="rounded-2xl border border-sage/40 bg-sage/10 p-8 text-center">
-        <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-sage text-cream">
+      <div className="animate-rise rounded-2xl border border-sage/40 bg-sage/10 p-8 text-center">
+        <div
+          className="animate-pop mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-sage text-cream"
+          style={{ animationDelay: "120ms" }}
+        >
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
             <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -156,7 +182,7 @@ export function BookingForm({
 
       {/* Step 1 — service */}
       {step === 1 && (
-        <section className="mt-8">
+        <section className="animate-rise mt-8">
           <h2 className="text-2xl text-bark">1. Vyberte si masáž</h2>
           <p className="mt-2 text-stone">{intro}</p>
           {services.length === 0 ? (
@@ -175,24 +201,28 @@ export function BookingForm({
                       setSlots(null);
                       setSlotsReason(undefined);
                       setStartTime("");
+                      setMonthAvail(new Set());
                       setStep(2);
                     }}
-                    className={`rounded-2xl border p-5 text-left transition-colors ${
+                    className={`rounded-2xl border p-5 text-left transition-all ${
                       active
-                        ? "border-clay bg-clay/5"
-                        : "border-sand-dark/60 bg-white/60 hover:border-clay/60"
+                        ? "border-clay bg-clay/5 ring-1 ring-clay"
+                        : "border-sand-dark/60 bg-cream hover:border-clay/60 hover:bg-clay/[0.03]"
                     }`}
                   >
                     <span className="block text-lg text-bark">{service.name}</span>
                     {service.description && (
-                      <span className="mt-1 block text-sm leading-relaxed text-stone">
+                      <span className="mt-1.5 block text-sm leading-relaxed text-stone">
                         {service.description}
                       </span>
                     )}
-                    <span className="mt-3 flex items-center gap-3 text-sm font-medium text-bark">
-                      <span>{formatPrice(service.priceEur)}</span>
-                      <span className="text-stone">·</span>
-                      <span className="text-stone">{formatDuration(service.durationMin)}</span>
+                    <span className="mt-4 flex items-baseline gap-2">
+                      <span className="font-serif text-xl text-bark">
+                        {formatPrice(service.priceEur)}
+                      </span>
+                      <span className="text-sm text-stone">
+                        · {formatDuration(service.durationMin)}
+                      </span>
                     </span>
                   </button>
                 );
@@ -204,7 +234,7 @@ export function BookingForm({
 
       {/* Step 2 — date & time */}
       {step === 2 && selectedService && (
-        <section className="mt-8">
+        <section className="animate-rise mt-8">
           <h2 className="text-2xl text-bark">2. Vyberte deň a čas</h2>
           <div className="mt-4 rounded-xl bg-sand/50 px-4 py-3 text-sm text-bark">
             <span className="font-medium">{selectedService.name}</span>
@@ -222,54 +252,57 @@ export function BookingForm({
             </button>
           </div>
 
-          <div className="mt-6 max-w-xs">
-            <label className="block text-sm font-medium text-bark" htmlFor="date">
-              Dátum
-            </label>
-            <input
-              id="date"
-              type="date"
-              min={minDate}
-              max={maxDate}
-              value={date}
-              onChange={(e) => {
-                setDate(e.target.value);
-                loadSlots(serviceId, e.target.value);
+          <div className="mt-7 grid gap-8 sm:grid-cols-[auto_1fr] sm:gap-10">
+            <Calendar
+              selected={date || null}
+              minDate={minDate}
+              maxDate={maxDate}
+              selectableDates={monthAvail}
+              loading={monthLoading}
+              onMonthChange={(year, month) => loadMonth(serviceId, year, month)}
+              onSelect={(d) => {
+                setDate(d);
+                loadSlots(serviceId, d);
               }}
-              className="mt-2 w-full rounded-lg border border-sand-dark bg-white px-3 py-2.5 text-bark focus:border-clay focus:outline-none focus:ring-2 focus:ring-clay/30"
             />
-          </div>
 
-          {date && (
-            <div className="mt-6">
-              <p className="text-sm font-medium text-bark">{formatDateLong(date)}</p>
-              {slotsLoading ? (
-                <p className="mt-3 text-sm text-stone">Načítavam voľné termíny…</p>
-              ) : slots && slots.length > 0 ? (
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {slots.map((slot) => (
-                    <button
-                      key={slot}
-                      type="button"
-                      onClick={() => setStartTime(slot)}
-                      className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
-                        startTime === slot
-                          ? "border-clay bg-clay text-cream"
-                          : "border-sand-dark bg-white text-bark hover:border-clay"
-                      }`}
-                    >
-                      {slot}
-                    </button>
-                  ))}
-                </div>
-              ) : (
-                <p className="mt-3 rounded-lg bg-sand/60 px-4 py-3 text-sm text-stone">
-                  {REASON_MESSAGES[slotsReason ?? "full"] ??
-                    "V tento deň nie sú voľné termíny."}
+            <div className="sm:min-h-[16rem]">
+              {!date ? (
+                <p className="text-sm leading-relaxed text-stone">
+                  Vyberte deň v kalendári a zobrazia sa voľné časy.
                 </p>
+              ) : (
+                <>
+                  <p className="text-sm font-medium text-bark">{formatDateLong(date)}</p>
+                  {slotsLoading ? (
+                    <p className="mt-4 text-sm text-stone">Načítavam voľné termíny…</p>
+                  ) : slots && slots.length > 0 ? (
+                    <div key={date} className="animate-rise mt-4 grid grid-cols-3 gap-2">
+                      {slots.map((slot) => (
+                        <button
+                          key={slot}
+                          type="button"
+                          onClick={() => setStartTime(slot)}
+                          className={`rounded-full border px-2 py-2 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40 ${
+                            startTime === slot
+                              ? "border-clay bg-clay text-cream"
+                              : "border-sand-dark bg-cream text-bark hover:border-clay"
+                          }`}
+                        >
+                          {slot}
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="mt-4 rounded-xl bg-sand/60 px-4 py-3 text-sm text-stone">
+                      {REASON_MESSAGES[slotsReason ?? "full"] ??
+                        "V tento deň nie sú voľné termíny."}
+                    </p>
+                  )}
+                </>
               )}
             </div>
-          )}
+          </div>
 
           <div className="mt-8 flex gap-3">
             <button
@@ -293,7 +326,7 @@ export function BookingForm({
 
       {/* Step 3 — contact details */}
       {step === 3 && selectedService && (
-        <section className="mt-8">
+        <section className="animate-rise mt-8">
           <h2 className="text-2xl text-bark">3. Vaše údaje</h2>
 
           <div className="mt-4 rounded-xl bg-sand/50 px-4 py-3 text-sm text-bark">
@@ -395,28 +428,41 @@ export function BookingForm({
 function Stepper({ step }: { step: number }) {
   const labels = ["Masáž", "Termín", "Údaje"];
   return (
-    <ol className="flex items-center gap-2 text-sm">
+    <ol className="flex items-center gap-2 text-sm sm:gap-3">
       {labels.map((label, i) => {
         const index = i + 1;
         const active = step === index;
         const done = step > index;
         return (
-          <li key={label} className="flex items-center gap-2">
-            <span
-              className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-semibold ${
-                active
-                  ? "bg-clay text-cream"
-                  : done
-                    ? "bg-sage text-cream"
-                    : "bg-sand text-stone"
-              }`}
-            >
-              {index}
+          <li key={label} className="flex items-center gap-2 sm:gap-3">
+            <span className="flex items-center gap-2">
+              <span
+                className={`flex h-7 w-7 items-center justify-center rounded-full text-xs font-semibold transition-colors ${
+                  done || active
+                    ? "bg-clay text-cream"
+                    : "border border-sand-dark bg-cream text-stone"
+                }`}
+              >
+                {done ? (
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                    <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                ) : (
+                  index
+                )}
+              </span>
+              <span
+                className={`hidden sm:inline ${active || done ? "font-medium text-bark" : "text-stone"}`}
+              >
+                {label}
+              </span>
             </span>
-            <span className={active ? "font-medium text-bark" : "text-stone"}>
-              {label}
-            </span>
-            {index < labels.length && <span className="mx-1 text-sand-dark">—</span>}
+            {index < labels.length && (
+              <span
+                className={`h-px w-5 sm:w-10 ${done ? "bg-clay/50" : "bg-sand-dark"}`}
+                aria-hidden
+              />
+            )}
           </li>
         );
       })}

@@ -27,6 +27,20 @@ export function SettingsForm({ settings }: { settings: Settings }) {
         <Text name="address" label="Adresa" defaultValue={settings.address} full />
         <Area name="aboutText" label="Text „O mne“" defaultValue={settings.aboutText} />
         <Area name="bookingIntro" label="Úvodný text na stránke rezervácie" defaultValue={settings.bookingIntro} />
+        <Text
+          name="heroImage"
+          label="Obrázok v úvode (URL)"
+          defaultValue={settings.heroImage}
+          full
+          hint="Odkaz na fotku alebo súbor v /public (napr. /hero.jpg). Prázdne = ozdobný motív."
+        />
+        <Text
+          name="aboutImage"
+          label="Fotka v sekcii „O mne“ (URL)"
+          defaultValue={settings.aboutImage}
+          full
+          hint="Najlepšie fotka na výšku. Prázdne = bez fotky."
+        />
         <Text name="instagramUrl" label="Instagram URL" defaultValue={settings.instagramUrl} />
         <Text name="facebookUrl" label="Facebook URL" defaultValue={settings.facebookUrl} />
       </Section>
@@ -69,7 +83,7 @@ export function SettingsForm({ settings }: { settings: Settings }) {
         >
           {pending ? "Ukladám…" : "Uložiť nastavenia"}
         </button>
-        {state?.ok && <span className="text-sm text-sage-dark">Uložené ✓</span>}
+        {state?.ok && <span className="text-sm text-clay">Uložené ✓</span>}
         {state?.error && <span className="text-sm text-red-700">{state.error}</span>}
       </div>
     </form>

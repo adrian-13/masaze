@@ -11,6 +11,9 @@
   --color-bark: #41382f;
   --color-stone: #786d61;
 
+  /* Default font families; overridden at runtime by the seed theme on <html>. */
+  --font-display: "Fraunces";
+  --font-body: "Mulish";
   --font-serif: var(--font-display), Georgia, serif;
   --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
 }
@@ -57,5 +60,90 @@ h4 {
 .form-input:focus {
   outline: none;
   border-color: var(--color-clay);
-  box-shadow: 0 0 0 2px rgb(176 125 98 / 0.3);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-clay) 30%, transparent);
+}
+
+/* --- Decorative effects (hero) --- */
+
+/* Subtle film grain for warmth; sits over flat fills so they don't look
+   synthetic. Neutral on purpose so it works with any seed palette. */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* Sparse, faint dotted connector (colour comes from currentColor / a text-*
+   token). Wider spacing + small dots keep it quiet. */
+.dotted-path {
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1.5px);
+  background-size: 22px 100%;
+  background-position: center;
+  background-repeat: repeat-x;
+}
+
+/* --- Motion: gentle entrances --- */
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Plays once on mount (hero load, step changes, slot reveals). */
+.animate-rise {
+  animation: rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes pop {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  60% {
+    transform: scale(1.04);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-pop {
+  animation: pop 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+/* Scroll-reveal for below-the-fold sections. Guarded by @supports so browsers
+   without scroll-driven animations (Safari/Firefox) simply show the content —
+   never hidden. */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: rise-in linear both;
+      animation-timeline: view();
+      animation-range: entry 5% cover 22%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise,
+  .animate-pop {
+    animation: none;
+  }
 }

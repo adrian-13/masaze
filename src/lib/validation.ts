@@ -54,6 +54,13 @@ export const blockedDateSchema = z.object({
   reason: z.string().trim().max(200).optional().or(z.literal("")),
 });
 
+export const testimonialInputSchema = z.object({
+  author: z.string().trim().min(2, "Zadajte meno.").max(80),
+  text: z.string().trim().min(4, "Zadajte text ohlasu.").max(600),
+  active: z.coerce.boolean().optional(),
+  sortOrder: z.coerce.number().int().optional(),
+});
+
 export const loginSchema = z.object({
   password: z.string().min(1, "Zadajte heslo."),
 });

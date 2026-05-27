@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useEffect, useRef } from "react";
+import { useActionState, useEffect, useRef, useState } from "react";
 import {
   createService,
   updateService,
@@ -19,16 +19,30 @@ interface Service {
 }
 
 export function ServiceCreateForm() {
+  const [open, setOpen] = useState(false);
   const [state, formAction, pending] = useActionState<ActionState, FormData>(
     createService,
     null,
   );
   const formRef = useRef<HTMLFormElement>(null);
 
-  // Clear the inputs after a service is successfully added.
+  // Clear the inputs after a service is successfully added (form stays open so
+  // several services can be added in a row).
   useEffect(() => {
     if (state?.ok) formRef.current?.reset();
   }, [state]);
+
+  if (!open) {
+    return (
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="flex w-full items-center justify-center gap-2 rounded-2xl border-2 border-clay/30 bg-clay/5 px-5 py-4 text-base font-semibold text-clay transition-colors hover:border-clay hover:bg-clay hover:text-cream"
+      >
+        <span className="text-xl leading-none">+</span> Pridať novú službu
+      </button>
+    );
+  }
 
   return (
     <form
@@ -36,7 +50,16 @@ export function ServiceCreateForm() {
       action={formAction}
       className="rounded-2xl border border-sand-dark/60 bg-white/60 p-5"
     >
-      <h2 className="text-lg text-bark">Pridať službu</h2>
+      <div className="flex items-center justify-between">
+        <h2 className="text-lg text-bark">Pridať službu</h2>
+        <button
+          type="button"
+          onClick={() => setOpen(false)}
+          className="text-sm text-stone transition-colors hover:text-bark"
+        >
+          Zrušiť
+        </button>
+      </div>
       <div className="mt-4 grid gap-3 sm:grid-cols-2">
         <label className="sm:col-span-2 block">
           <span className="mb-1 block text-sm font-medium text-bark">Názov</span>
@@ -78,7 +101,16 @@ export function ServiceRow({ service }: { service: Service }) {
   );
 
   return (
-    <article className="rounded-2xl border border-sand-dark/60 bg-white/60 p-5">
+    <article
+      className={`relative rounded-2xl border border-sand-dark/60 bg-white/60 p-5 ${
+        service.active ? "" : "opacity-70 transition-opacity focus-within:opacity-100"
+      }`}
+    >
+      {!service.active && (
+        <span className="absolute right-4 top-4 rounded-full bg-stone/15 px-2.5 py-0.5 text-xs font-medium text-stone">
+          Neaktívna
+        </span>
+      )}
       <form action={formAction}>
         <input type="hidden" name="id" value={service.id} />
         <div className="grid gap-3 sm:grid-cols-2">
@@ -143,11 +175,11 @@ export function ServiceRow({ service }: { service: Service }) {
           <button
             type="submit"
             disabled={pending}
-            className="rounded-full bg-sage px-5 py-2 text-sm font-semibold text-cream hover:bg-sage-dark disabled:opacity-50"
+            className="rounded-full bg-clay px-5 py-2 text-sm font-semibold text-cream hover:bg-clay-dark disabled:opacity-50"
           >
             {pending ? "Ukladám…" : "Uložiť"}
           </button>
-          {state?.ok && <span className="text-sm text-sage-dark">Uložené ✓</span>}
+          {state?.ok && <span className="text-sm text-clay">Uložené ✓</span>}
           {state?.error && <span className="text-sm text-red-700">{state.error}</span>}
         </div>
       </form>
@@ -156,7 +188,12 @@ export function ServiceRow({ service }: { service: Service }) {
         <input type="hidden" name="id" value={service.id} />
         <button
           type="submit"
-          className="text-sm text-stone hover:text-red-700"
+          onClick={(e) => {
+            if (!confirm(`Naozaj vymazať službu „${service.name}"?`)) {
+              e.preventDefault();
+            }
+          }}
+          className="text-sm text-stone transition-colors hover:text-red-700"
         >
           Vymazať službu
         </button>

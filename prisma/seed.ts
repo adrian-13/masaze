@@ -60,6 +60,29 @@ async function main() {
     });
   }
 
+  const existingTestimonials = await prisma.testimonial.count();
+  if (existingTestimonials === 0) {
+    await prisma.testimonial.createMany({
+      data: [
+        {
+          author: "Jana K.",
+          text: "Konečne masáž, po ktorej sa cítim naozaj oddýchnutá. Individuálny prístup a príjemné prostredie — chodím pravidelne.",
+          sortOrder: 1,
+        },
+        {
+          author: "Martin H.",
+          text: "Po športe mi športová masáž vždy pomôže s regeneráciou. Profesionálne a presne podľa potreby.",
+          sortOrder: 2,
+        },
+        {
+          author: "Lucia B.",
+          text: "Rezervácia online je super jednoduchá a samotná masáž bola úžasná. Vrelo odporúčam.",
+          sortOrder: 3,
+        },
+      ],
+    });
+  }
+
   console.log("Seed dokončený.");
 }
 

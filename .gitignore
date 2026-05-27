@@ -48,3 +48,13 @@ next-env.d.ts
 *.db-journal
 *.sqlite
 *.sqlite3
+
+# generated design preview gallery
+theme-preview.html
+
+# generated e-mail template preview
+email-preview.html
+
+# photo selection preview (temporary)
+photo-preview.html
+/_photocand

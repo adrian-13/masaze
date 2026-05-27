@@ -9,6 +9,7 @@ const LINKS = [
   { href: "/admin/sluzby", label: "Služby" },
   { href: "/admin/dostupnost", label: "Dostupnosť" },
   { href: "/admin/blokovane", label: "Blokované dni" },
+  { href: "/admin/referencie", label: "Ohlasy" },
   { href: "/admin/nastavenia", label: "Nastavenia" },
 ];
 

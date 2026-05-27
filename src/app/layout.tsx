@@ -1,21 +1,18 @@
 import type { Metadata } from "next";
-import { Fraunces, Mulish } from "next/font/google";
 import "./globals.css";
 import { getSettings } from "@/lib/settings";
+import { getTheme } from "@/lib/theme";
 
-const display = Fraunces({
-  subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const body = Mulish({
-  subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-body",
-  display: "swap",
-});
+// Base URL for resolving absolute metadata URLs (OG image, etc.). Set
+// NEXT_PUBLIC_SITE_URL to your domain in production; Vercel's URL is used as a
+// fallback, and localhost in development.
+function siteUrl(): string {
+  if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
+  if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
+    return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
+  }
+  return "http://localhost:3000";
+}
 
 export async function generateMetadata(): Promise<Metadata> {
   let businessName = "Masáže";
@@ -27,12 +24,26 @@ export async function generateMetadata(): Promise<Metadata> {
   } catch {
     // Database not reachable (e.g. during build): fall back to defaults.
   }
+  const title = `${businessName} — masáže`;
   return {
+    metadataBase: new URL(siteUrl()),
     title: {
-      default: `${businessName} — masáže`,
+      default: title,
       template: `%s · ${businessName}`,
     },
     description: tagline,
+    openGraph: {
+      title,
+      description: tagline,
+      siteName: businessName,
+      type: "website",
+      locale: "sk_SK",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description: tagline,
+    },
   };
 }
 
@@ -41,9 +52,28 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // The seed-driven theme produces the palette, fonts and corner radii as CSS
+  // variables. Setting them on <html> overrides the defaults in globals.css, so
+  // the whole UI re-themes from one `DESIGN_SEED` value.
+  const theme = getTheme();
+
   return (
-    <html lang="sk" className={`${display.variable} ${body.variable} h-full`}>
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html
+      lang="sk"
+      className="h-full"
+      style={theme.vars as React.CSSProperties}
+    >
+      <body className="min-h-full flex flex-col">
+        {/* Seed-selected web fonts (hoisted to <head> by React). */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <link rel="stylesheet" href={theme.fontHref} precedence="default" />
+        {children}
+      </body>
     </html>
   );
 }

@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { bookingInputSchema } from "@/lib/validation";
 import { getAvailableSlots } from "@/lib/availability";
 import { toHHMM, toMinutes } from "@/lib/time";
+import { sendBookingRequested } from "@/lib/mail";
 
 export async function POST(request: Request) {
   let body: unknown;
@@ -42,7 +43,7 @@ export async function POST(request: Request) {
 
   const endTime = toHHMM(toMinutes(data.startTime) + service.durationMin);
 
-  await prisma.booking.create({
+  const booking = await prisma.booking.create({
     data: {
       serviceId: service.id,
       serviceName: service.name,
@@ -58,6 +59,10 @@ export async function POST(request: Request) {
       status: "pending",
     },
   });
+
+  // Best-effort: notify the owner and acknowledge to the customer. Never blocks
+  // a successful booking if mail is unconfigured or sending fails.
+  await sendBookingRequested(booking);
 
   return NextResponse.json({
     ok: true,

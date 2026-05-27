@@ -13,7 +13,9 @@
     "db:reset": "prisma migrate reset",
     "db:seed": "tsx prisma/seed.ts",
     "db:studio": "prisma studio",
-    "db:turso:deploy": "tsx scripts/deploy-migrations.ts"
+    "db:turso:deploy": "tsx scripts/deploy-migrations.ts",
+    "design:preview": "tsx scripts/preview-themes.ts",
+    "mail:preview": "tsx scripts/preview-emails.ts"
   },
   "dependencies": {
     "@libsql/client": "^0.17.3",
@@ -23,6 +25,7 @@
     "next": "16.2.6",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "resend": "^6.12.3",
     "zod": "^4.4.3"
   },
   "devDependencies": {
