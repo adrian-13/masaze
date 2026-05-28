@@ -43,7 +43,7 @@ export function SiteHero({ settings }: { settings: Settings }) {
               className="animate-rise mt-7 max-w-xl text-lg leading-relaxed text-stone"
               style={{ animationDelay: "210ms" }}
             >
-              {settings.aboutText}
+              {settings.heroIntro}
             </p>
 
             <div

@@ -25,6 +25,13 @@ export function SettingsForm({ settings }: { settings: Settings }) {
         <Text name="phone" label="Telefón" defaultValue={settings.phone} />
         <Text name="email" label="E-mail" defaultValue={settings.email} />
         <Text name="address" label="Adresa" defaultValue={settings.address} full />
+        <Area
+          name="heroIntro"
+          label="Krátky popis v úvode (hero)"
+          defaultValue={settings.heroIntro}
+          rows={2}
+          hint="Stručný teaser (1–2 vety) pod hlavným nadpisom na úvodnej stránke. Plný text „O mne“ je nižšie."
+        />
         <Area name="aboutText" label="Text „O mne“" defaultValue={settings.aboutText} />
         <Area name="bookingIntro" label="Úvodný text na stránke rezervácie" defaultValue={settings.bookingIntro} />
         <Text
@@ -134,15 +141,20 @@ function Area({
   name,
   label,
   defaultValue,
+  hint,
+  rows = 4,
 }: {
   name: string;
   label: string;
   defaultValue: string;
+  hint?: string;
+  rows?: number;
 }) {
   return (
     <label className="block sm:col-span-2">
       <span className="mb-1 block text-sm font-medium text-bark">{label}</span>
-      <textarea name={name} rows={4} defaultValue={defaultValue} className="form-input resize-none" />
+      <textarea name={name} rows={rows} defaultValue={defaultValue} className="form-input resize-none" />
+      {hint && <span className="mt-1 block text-xs text-stone">{hint}</span>}
     </label>
   );
 }

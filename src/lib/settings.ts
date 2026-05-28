@@ -8,6 +8,8 @@ export const DEFAULT_SETTINGS = {
   businessName: "Masáže Patrícia",
   ownerName: "Patrícia",
   tagline: "Doprajte svojmu telu chvíľu pokoja a regenerácie.",
+  heroIntro:
+    "Vyštudovaná a certifikovaná masérka. Verím, že kvalitná masáž dokáže uvoľniť nielen telo, ale aj myseľ.",
   aboutTitle: "O mne",
   aboutText:
     "Volám sa Patrícia a venujem sa masážam ako vyštudovaná a certifikovaná masérka. Verím, že kvalitná masáž dokáže uvoľniť nielen telo, ale aj myseľ. Ku každému klientovi pristupujem individuálne a s rešpektom k jeho potrebám.",
