@@ -28,7 +28,7 @@ export function SiteHeader({
         >
           {logoImage && (
             <span
-              className="block h-9 w-9 shrink-0 bg-contain bg-center bg-no-repeat sm:h-10 sm:w-10"
+              className="block h-9 w-9 shrink-0 rounded-full bg-cover bg-center bg-no-repeat sm:h-10 sm:w-10"
               style={{ backgroundImage: `url(${logoImage})` }}
               aria-hidden
             />

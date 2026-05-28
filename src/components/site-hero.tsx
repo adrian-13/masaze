@@ -103,34 +103,24 @@ export function SiteHero({ settings }: { settings: Settings }) {
             {/* Botanical sprig poking out behind the arch */}
             <Sprig className="absolute -right-4 -top-8 h-44 -rotate-45 text-sage/70 sm:-right-8" />
 
-            {/* Brand seal — either the custom logo or, as a fallback, a small
-              * rotating-text seal with the brand name. */}
-            {settings.logoImage ? (
-              <div
-                className="absolute -bottom-6 -left-3 h-24 w-24 rounded-full bg-cream bg-contain bg-center bg-no-repeat shadow-md ring-1 ring-sand-dark/60 sm:-left-6 sm:h-28 sm:w-28"
-                style={{ backgroundImage: `url(${settings.logoImage})` }}
-                role="img"
-                aria-label={settings.businessName}
-              />
-            ) : (
-              <div className="absolute -bottom-6 -left-3 grid h-24 w-24 place-items-center rounded-full border border-sand-dark/60 bg-cream shadow-md sm:-left-6 sm:h-28 sm:w-28">
-                <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full text-bark">
-                  <defs>
-                    <path
-                      id="seal-ring"
-                      d="M50 50 m -37 0 a 37 37 0 1 1 74 0 a 37 37 0 1 1 -74 0"
-                    />
-                  </defs>
-                  <text
-                    fill="currentColor"
-                    style={{ fontSize: "9px", letterSpacing: "1.5px", textTransform: "uppercase" }}
-                  >
-                    <textPath href="#seal-ring">{ringText}</textPath>
-                  </text>
-                </svg>
-                <LeafMark className="h-6 w-6 text-sage" />
-              </div>
-            )}
+            {/* Rotating seal */}
+            <div className="absolute -bottom-6 -left-3 grid h-24 w-24 place-items-center rounded-full border border-sand-dark/60 bg-cream shadow-md sm:-left-6 sm:h-28 sm:w-28">
+              <svg viewBox="0 0 100 100" className="absolute inset-0 h-full w-full text-bark">
+                <defs>
+                  <path
+                    id="seal-ring"
+                    d="M50 50 m -37 0 a 37 37 0 1 1 74 0 a 37 37 0 1 1 -74 0"
+                  />
+                </defs>
+                <text
+                  fill="currentColor"
+                  style={{ fontSize: "9px", letterSpacing: "1.5px", textTransform: "uppercase" }}
+                >
+                  <textPath href="#seal-ring">{ringText}</textPath>
+                </text>
+              </svg>
+              <LeafMark className="h-6 w-6 text-sage" />
+            </div>
           </div>
         </div>
 
