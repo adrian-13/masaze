@@ -10,10 +10,10 @@ export const DEFAULT_SETTINGS = {
   tagline: "Doprajte svojmu telu chvíľu pokoja a regenerácie.",
   aboutTitle: "O mne",
   aboutText:
-    "Volám sa Patrícia a masážam sa venujem už viac ako desať rokov. Verím, že kvalitná masáž dokáže uvoľniť nielen telo, ale aj myseľ. Ku každému klientovi pristupujem individuálne a s rešpektom k jeho potrebám.",
-  phone: "+421 900 000 000",
+    "Volám sa Patrícia a venujem sa masážam ako vyštudovaná a certifikovaná masérka. Verím, že kvalitná masáž dokáže uvoľniť nielen telo, ale aj myseľ. Ku každému klientovi pristupujem individuálne a s rešpektom k jeho potrebám.",
+  phone: "+421 904 270 869",
   email: "kontakt@masazepatricia.sk",
-  address: "Hlavná 1, 811 01 Bratislava",
+  address: "Diviaky nad Nitricou 201",
   instagramUrl: "",
   facebookUrl: "",
   // URL of the brand logo. Empty = fallback to a plain text wordmark. Can be
