@@ -77,8 +77,28 @@ export function BookingForm({
   const step1Ref = useRef<HTMLElement>(null);
   const step2Ref = useRef<HTMLElement>(null);
   const step3Ref = useRef<HTMLElement>(null);
+  const slotsRef = useRef<HTMLDivElement>(null);
   const isInitialMount = useRef(true);
   const prevStep = useRef(step);
+
+  // On phones, the slot picker stacks below the calendar — picking a day
+  // would otherwise leave the times below the fold. Smoothly bring them
+  // into view. No-op on sm+ (slots are already next to the calendar).
+  function scrollToSlotsOnMobile() {
+    if (typeof window === "undefined") return;
+    if (window.matchMedia("(min-width: 640px)").matches) return;
+    setTimeout(() => {
+      const target = slotsRef.current;
+      if (!target) return;
+      const HEADER_OFFSET = 80;
+      const top = target.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({
+        top: Math.max(0, top),
+        behavior: prefersReduced ? "auto" : "smooth",
+      });
+    }, 60);
+  }
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -306,10 +326,11 @@ export function BookingForm({
               onSelect={(d) => {
                 setDate(d);
                 loadSlots(serviceId, d);
+                scrollToSlotsOnMobile();
               }}
             />
 
-            <div className="sm:min-h-[16rem]">
+            <div ref={slotsRef} className="sm:min-h-[16rem]">
               {!date ? (
                 <p className="text-sm leading-relaxed text-stone">
                   Vyberte deň v kalendári a zobrazia sa voľné časy.
