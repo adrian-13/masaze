@@ -5,17 +5,20 @@ import { prisma } from "@/lib/prisma";
 
 export const DEFAULT_SETTINGS = {
   // Business profile / page content
-  businessName: "Masáže Klára",
-  ownerName: "Klára Nováková",
+  businessName: "Masáže Patrícia",
+  ownerName: "Patrícia",
   tagline: "Doprajte svojmu telu chvíľu pokoja a regenerácie.",
   aboutTitle: "O mne",
   aboutText:
-    "Volám sa Klára a masážam sa venujem už viac ako desať rokov. Verím, že kvalitná masáž dokáže uvoľniť nielen telo, ale aj myseľ. Ku každému klientovi pristupujem individuálne a s rešpektom k jeho potrebám.",
+    "Volám sa Patrícia a masážam sa venujem už viac ako desať rokov. Verím, že kvalitná masáž dokáže uvoľniť nielen telo, ale aj myseľ. Ku každému klientovi pristupujem individuálne a s rešpektom k jeho potrebám.",
   phone: "+421 900 000 000",
-  email: "kontakt@masazeklara.sk",
+  email: "kontakt@masazepatricia.sk",
   address: "Hlavná 1, 811 01 Bratislava",
   instagramUrl: "",
   facebookUrl: "",
+  // URL of the brand logo. Empty = fallback to a plain text wordmark. Can be
+  // an absolute URL or a file in /public. Ships expecting public/logo.png.
+  logoImage: "/logo.png",
   // URL of the hero photo, shown inside the arch. Empty = a themed illustrated
   // placeholder. Can be an absolute URL or a file in /public. Ships with a
   // replaceable stock photo (public/hero.jpg).

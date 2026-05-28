@@ -17,6 +17,14 @@ export function SiteFooter({
       <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-3">
         {/* Brand */}
         <div>
+          {settings.logoImage && (
+            <div
+              className="mb-3 h-12 w-12 bg-contain bg-left bg-no-repeat"
+              style={{ backgroundImage: `url(${settings.logoImage})` }}
+              role="img"
+              aria-label={settings.businessName}
+            />
+          )}
           <h3 className="font-serif text-xl text-bark">{settings.businessName}</h3>
           <p className="mt-3 max-w-xs text-sm leading-relaxed text-stone">
             {settings.tagline}

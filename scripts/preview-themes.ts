@@ -54,7 +54,7 @@ function card(theme: Theme): string {
     .join(";");
   return `<article class="card" style="${style}">
     <div class="hero">
-      <p class="kicker">Masáže Klára</p>
+      <p class="kicker">Masáže Patrícia</p>
       <h1>Chvíľa pokoja a&nbsp;regenerácie</h1>
     </div>
     <div class="body">

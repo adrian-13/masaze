@@ -9,7 +9,13 @@ const NAV_LINKS = [
   { href: "/#kontakt", label: "Kontakt" },
 ];
 
-export function SiteHeader({ businessName }: { businessName: string }) {
+export function SiteHeader({
+  businessName,
+  logoImage,
+}: {
+  businessName: string;
+  logoImage?: string;
+}) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -17,10 +23,17 @@ export function SiteHeader({ businessName }: { businessName: string }) {
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
         <Link
           href="/"
-          className="font-serif text-xl text-bark transition-colors hover:text-clay"
+          className="flex items-center gap-2.5 font-serif text-xl text-bark transition-colors hover:text-clay sm:gap-3"
           onClick={() => setOpen(false)}
         >
-          {businessName}
+          {logoImage && (
+            <span
+              className="block h-9 w-9 shrink-0 bg-contain bg-center bg-no-repeat sm:h-10 sm:w-10"
+              style={{ backgroundImage: `url(${logoImage})` }}
+              aria-hidden
+            />
+          )}
+          <span>{businessName}</span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">

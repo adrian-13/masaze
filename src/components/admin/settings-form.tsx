@@ -28,6 +28,13 @@ export function SettingsForm({ settings }: { settings: Settings }) {
         <Area name="aboutText" label="Text „O mne“" defaultValue={settings.aboutText} />
         <Area name="bookingIntro" label="Úvodný text na stránke rezervácie" defaultValue={settings.bookingIntro} />
         <Text
+          name="logoImage"
+          label="Logo (URL)"
+          defaultValue={settings.logoImage}
+          full
+          hint="Odkaz na logo alebo súbor v /public (napr. /logo.png). Prázdne = bez loga, len text značky."
+        />
+        <Text
           name="heroImage"
           label="Obrázok v úvode (URL)"
           defaultValue={settings.heroImage}
