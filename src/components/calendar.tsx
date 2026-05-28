@@ -112,7 +112,7 @@ export function Calendar({
     selected && rangeEnd ? (rangeEnd < selected ? selected : rangeEnd) : selected ?? null;
 
   return (
-    <div className="mx-auto w-[24rem] max-w-full">
+    <div className="mx-auto w-full max-w-[24rem]">
       <div className="flex items-center justify-between">
         <button
           type="button"
@@ -141,7 +141,7 @@ export function Calendar({
         </button>
       </div>
 
-      <div className="mt-4 grid grid-cols-7 gap-1.5 text-center text-xs font-medium uppercase tracking-wide text-stone">
+      <div className="mt-4 grid grid-cols-7 gap-1 text-center text-xs font-medium uppercase tracking-wide text-stone sm:gap-1.5">
         {WEEKDAYS.map((w) => (
           <span key={w} className="py-1">{w}</span>
         ))}
@@ -150,7 +150,7 @@ export function Calendar({
       <div className="relative mt-1">
       <div
         onMouseLeave={() => onDayHover?.(null)}
-        className={`grid grid-cols-7 gap-1.5 transition-opacity ${
+        className={`grid grid-cols-7 gap-1 transition-opacity sm:gap-1.5 ${
           loading ? "pointer-events-none opacity-30" : ""
         }`}
       >

@@ -304,7 +304,7 @@ export function BookingForm({
             </div>
           </div>
 
-          <div className="mt-8 flex gap-3">
+          <div className="sticky bottom-0 z-10 -mx-5 mt-8 flex gap-3 border-t border-sand-dark/60 bg-cream/95 px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 backdrop-blur-sm sm:static sm:mx-0 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:backdrop-blur-none">
             <button
               type="button"
               onClick={() => setStep(1)}
@@ -316,7 +316,7 @@ export function BookingForm({
               type="button"
               disabled={!startTime}
               onClick={() => setStep(3)}
-              className="rounded-full bg-clay px-6 py-2.5 text-sm font-semibold text-cream transition-colors hover:bg-clay-dark disabled:cursor-not-allowed disabled:opacity-40"
+              className="flex-1 rounded-full bg-clay px-6 py-2.5 text-sm font-semibold text-cream transition-colors hover:bg-clay-dark disabled:cursor-not-allowed disabled:opacity-40 sm:flex-none"
             >
               Pokračovať
             </button>
@@ -402,7 +402,7 @@ export function BookingForm({
               </p>
             )}
 
-            <div className="mt-2 flex gap-3 sm:col-span-2">
+            <div className="sticky bottom-0 z-10 -mx-5 mt-4 flex gap-3 border-t border-sand-dark/60 bg-cream/95 px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 backdrop-blur-sm sm:static sm:col-span-2 sm:mx-0 sm:mt-2 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:backdrop-blur-none">
               <button
                 type="button"
                 onClick={() => setStep(2)}
@@ -413,7 +413,7 @@ export function BookingForm({
               <button
                 type="submit"
                 disabled={submitting}
-                className="rounded-full bg-clay px-7 py-2.5 text-sm font-semibold text-cream transition-colors hover:bg-clay-dark disabled:opacity-50"
+                className="flex-1 rounded-full bg-clay px-7 py-2.5 text-sm font-semibold text-cream transition-colors hover:bg-clay-dark disabled:opacity-50 sm:flex-none"
               >
                 {submitting ? "Odosielam…" : "Odoslať rezerváciu"}
               </button>

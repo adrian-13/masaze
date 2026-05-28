@@ -97,7 +97,7 @@ export function BookingProvider({
         className="booking-dialog m-0 h-dvh max-h-dvh w-full max-w-full rounded-none bg-cream p-0 text-bark shadow-2xl backdrop:bg-bark/50 sm:m-auto sm:h-auto sm:max-h-[calc(100dvh-2rem)] sm:w-[calc(100%-1.5rem)] sm:max-w-4xl sm:rounded-3xl"
       >
         {state.open && (
-          <div className="relative h-full overflow-y-auto px-5 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[max(3rem,env(safe-area-inset-top))] sm:h-auto sm:max-h-[85vh] sm:px-8 sm:pb-8 sm:pt-8">
+          <div className="relative h-full overflow-y-auto px-5 pb-0 pt-[max(3rem,env(safe-area-inset-top))] sm:h-auto sm:max-h-[85vh] sm:px-8 sm:pb-8 sm:pt-8">
             <button
               type="button"
               onClick={close}
