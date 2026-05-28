@@ -226,7 +226,7 @@ export default async function HomePage() {
             Doprajte si chvíľu pre seba
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-cream/70">
-            Rezervácia trvá minútu a je nezáväzná. Termín vám potvrdím osobne.
+            Rezervácia trvá minútu a je nezáväzná. Ozvem sa vám čoskoro.
           </p>
           <Link
             href="/rezervacia"

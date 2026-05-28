@@ -37,7 +37,7 @@ export default async function ReservationPage({
     <div className="mx-auto max-w-4xl px-5 pb-16 pt-8 sm:pt-10">
       <h1 className="text-3xl text-bark sm:text-4xl">Online rezervácia</h1>
       <p className="mt-3 text-stone">
-        Rezervácia je nezáväzná žiadosť — termín vám potvrdím osobne.
+        Rezervácia je nezáväzná žiadosť — ozvem sa vám čoskoro.
       </p>
 
       <div className="mt-8">

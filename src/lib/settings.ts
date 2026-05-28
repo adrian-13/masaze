@@ -24,7 +24,7 @@ export const DEFAULT_SETTINGS = {
   // photo shown. Ships with a replaceable stock photo (public/about.jpg).
   aboutImage: "/about.jpg",
   bookingIntro:
-    "Vyberte si masáž, deň a voľný čas. Po odoslaní vás budem kontaktovať s potvrdením termínu.",
+    "Vyberte si masáž, deň a voľný čas. Po odoslaní sa vám čoskoro ozvem.",
 
   // Booking rules (stored as strings, parsed to numbers where needed)
   slotIntervalMin: "30",

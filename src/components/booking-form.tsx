@@ -303,7 +303,7 @@ export function BookingForm({
         </div>
         <h2 className="mt-5 text-2xl text-bark">Žiadosť o rezerváciu odoslaná</h2>
         <p className="mt-3 text-stone">
-          Ďakujem! Ozvem sa vám s potvrdením termínu.
+          Ďakujem za vašu žiadosť — ozvem sa vám čoskoro.
         </p>
         <div className="mx-auto mt-6 max-w-sm rounded-xl bg-cream p-5 text-left text-sm">
           <p className="font-semibold text-bark">{success.serviceName}</p>

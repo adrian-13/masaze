@@ -398,7 +398,7 @@ export async function sendBookingRequested(booking: BookingEmailData): Promise<v
   const fn = firstName(booking.customerName);
   const ackBody = [
     paragraph(
-      `Dobrý deň${fn ? `, ${esc(fn)}` : ""}, ďakujeme za vašu žiadosť o rezerváciu. Je <strong>nezáväzná</strong> — termín vám čoskoro potvrdíme a budeme vás o tom informovať e-mailom.`,
+      `Dobrý deň${fn ? `, ${esc(fn)}` : ""}, ďakujeme za vašu žiadosť o rezerváciu. Je <strong>nezáväzná</strong> — čoskoro sa vám ozvem a termín si spoločne dohodneme.`,
     ),
     sectionLabel("Detail rezervácie"),
     detailTable(booking, p.bark),
@@ -409,7 +409,7 @@ export async function sendBookingRequested(booking: BookingEmailData): Promise<v
       subject: `Prijali sme vašu žiadosť — ${businessName}`,
       html: shell({
         businessName,
-        preheader: "Vašu žiadosť sme prijali, čoskoro vám termín potvrdíme.",
+        preheader: "Vašu žiadosť sme prijali, čoskoro sa vám ozveme.",
         accent: p.stone,
         accentDark: p.bark,
         accentTint: p.sand,

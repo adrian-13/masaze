@@ -13,7 +13,6 @@ import {
 } from "@/lib/validation";
 import { updateSettings, DEFAULT_SETTINGS, type Settings } from "@/lib/settings";
 import { addDaysISO, isValidDateISO } from "@/lib/time";
-import { sendBookingCancelled, sendBookingConfirmed } from "@/lib/mail";
 
 export type ActionState = { ok?: boolean; error?: string } | null;
 
@@ -231,14 +230,10 @@ export async function setBookingStatus(formData: FormData): Promise<void> {
   const id = String(formData.get("id") ?? "");
   const status = String(formData.get("status") ?? "");
   if (id && ["pending", "confirmed", "cancelled"].includes(status)) {
-    const booking = await prisma.booking.findUnique({ where: { id } });
-    if (!booking) return;
-    // Only e-mail the customer when the status actually changes.
-    const changed = booking.status !== status;
     await prisma.booking.update({ where: { id }, data: { status } });
     revalidatePath("/admin");
-    if (changed && status === "confirmed") await sendBookingConfirmed(booking);
-    if (changed && status === "cancelled") await sendBookingCancelled(booking);
+    // No automated e-mail to the customer on status change: the masseuse
+    // confirms / cancels in person or by phone.
   }
 }
 
