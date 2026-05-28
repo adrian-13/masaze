@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { BookButton } from "@/components/booking-modal";
 
 const NAV_LINKS = [
   { href: "/#sluzby", label: "Služby" },
@@ -34,12 +33,12 @@ export function SiteHeader({ businessName }: { businessName: string }) {
               {link.label}
             </Link>
           ))}
-          <BookButton
+          <Link
             href="/rezervacia"
             className="rounded-full bg-clay px-5 py-2 text-sm font-semibold text-cream transition-colors hover:bg-clay-dark"
           >
             Rezervovať
-          </BookButton>
+          </Link>
         </nav>
 
         <button
@@ -72,13 +71,13 @@ export function SiteHeader({ businessName }: { businessName: string }) {
                 {link.label}
               </Link>
             ))}
-            <BookButton
+            <Link
               href="/rezervacia"
               onClick={() => setOpen(false)}
               className="mt-1 rounded-full bg-clay px-5 py-2.5 text-center text-base font-semibold text-cream hover:bg-clay-dark"
             >
               Rezervovať
-            </BookButton>
+            </Link>
           </div>
         </nav>
       )}

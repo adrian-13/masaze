@@ -232,9 +232,12 @@ export function BookingForm({
         </section>
       )}
 
-      {/* Step 2 — date & time */}
+      {/* Step 2 — date & time.
+       * No `animate-rise` here: that animation leaves a `transform` on the
+       * <section>, which becomes a containing block for the sticky action bar
+       * and breaks viewport-pinning on mobile. */}
       {step === 2 && selectedService && (
-        <section className="animate-rise mt-8">
+        <section className="mt-8">
           <h2 className="text-2xl text-bark">2. Vyberte deň a čas</h2>
           <div className="mt-4 rounded-xl bg-sand/50 px-4 py-3 text-sm text-bark">
             <span className="font-medium">{selectedService.name}</span>
@@ -326,7 +329,7 @@ export function BookingForm({
 
       {/* Step 3 — contact details */}
       {step === 3 && selectedService && (
-        <section className="animate-rise mt-8">
+        <section className="mt-8">
           <h2 className="text-2xl text-bark">3. Vaše údaje</h2>
 
           <div className="mt-4 rounded-xl bg-sand/50 px-4 py-3 text-sm text-bark">

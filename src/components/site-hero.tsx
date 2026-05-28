@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { Settings } from "@/lib/settings";
 import { LeafMark, Sprig } from "@/components/decorations";
-import { BookButton } from "@/components/booking-modal";
 
 const FEATURES = ["Online rezervácia", "Individuálny prístup", "Diskrétne prostredie"];
 
@@ -55,12 +54,12 @@ export function SiteHero({ settings }: { settings: Settings }) {
               className="animate-rise mt-9 flex flex-wrap gap-4"
               style={{ animationDelay: "290ms" }}
             >
-              <BookButton
+              <Link
                 href="/rezervacia"
                 className="rounded-full bg-clay px-7 py-3 text-base font-semibold text-cream shadow-sm transition-colors hover:bg-clay-dark"
               >
                 Rezervovať termín
-              </BookButton>
+              </Link>
               <Link
                 href="#sluzby"
                 className="rounded-full border border-sand-dark px-7 py-3 text-base font-semibold text-bark transition-colors hover:bg-sand"

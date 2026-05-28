@@ -1,9 +1,9 @@
+import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import { getSettings } from "@/lib/settings";
 import { formatDuration, formatPrice } from "@/lib/format";
 import { SiteHero } from "@/components/site-hero";
 import { LeafMark, Sprig } from "@/components/decorations";
-import { BookButton } from "@/components/booking-modal";
 
 const STEPS = [
   {
@@ -116,13 +116,12 @@ export default async function HomePage() {
                       {formatDuration(service.durationMin)}
                     </p>
                   </div>
-                  <BookButton
-                    serviceId={service.id}
+                  <Link
                     href={`/rezervacia?service=${service.id}`}
                     className="rounded-full border border-clay px-5 py-2 text-sm font-semibold text-clay transition-colors hover:bg-clay hover:text-cream"
                   >
                     Rezervovať
-                  </BookButton>
+                  </Link>
                 </div>
               </li>
             ))}
@@ -229,12 +228,12 @@ export default async function HomePage() {
           <p className="mx-auto mt-4 max-w-xl text-lg leading-relaxed text-cream/70">
             Rezervácia trvá minútu a je nezáväzná. Termín vám potvrdím osobne.
           </p>
-          <BookButton
+          <Link
             href="/rezervacia"
             className="mt-9 inline-block rounded-full bg-cream px-8 py-3 text-base font-semibold text-bark shadow-sm transition-colors hover:bg-sand"
           >
             Rezervovať termín
-          </BookButton>
+          </Link>
         </div>
       </section>
     </>
