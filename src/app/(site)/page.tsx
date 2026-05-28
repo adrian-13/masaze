@@ -94,20 +94,20 @@ export default async function HomePage() {
             {services.map((service) => (
               <li
                 key={service.id}
-                className="group flex flex-col gap-5 border-t border-sand-dark/50 py-7 sm:flex-row sm:items-center sm:justify-between sm:gap-10"
+                className="group flex flex-col gap-6 border-t border-sand-dark/50 py-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10 sm:py-7"
               >
                 <div className="sm:max-w-md">
                   <h3 className="text-xl text-bark transition-colors group-hover:text-clay">
                     {service.name}
                   </h3>
                   {service.description && (
-                    <p className="mt-1.5 text-sm leading-relaxed text-stone">
+                    <p className="mt-2 text-sm leading-relaxed text-stone">
                       {service.description}
                     </p>
                   )}
                 </div>
 
-                <div className="flex shrink-0 items-center gap-6">
+                <div className="flex w-full shrink-0 items-center justify-between gap-6 sm:w-auto sm:justify-start">
                   <div className="leading-tight sm:text-right">
                     <p className="font-serif text-2xl text-bark">
                       {formatPrice(service.priceEur)}
