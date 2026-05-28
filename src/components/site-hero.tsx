@@ -5,7 +5,6 @@ import { LeafMark, Sprig } from "@/components/decorations";
 const FEATURES = ["Online rezervácia", "Individuálny prístup", "Diskrétne prostredie"];
 
 export function SiteHero({ settings }: { settings: Settings }) {
-  const excerpt = makeExcerpt(settings.aboutText, 280);
   const ringText = ` ${settings.businessName}  ·  Rezervuj online  · `;
 
   return (
@@ -44,7 +43,7 @@ export function SiteHero({ settings }: { settings: Settings }) {
               className="animate-rise mt-7 max-w-xl text-lg leading-relaxed text-stone"
               style={{ animationDelay: "210ms" }}
             >
-              {excerpt}
+              {settings.aboutText}
             </p>
 
             <div
@@ -135,20 +134,3 @@ export function SiteHero({ settings }: { settings: Settings }) {
   );
 }
 
-// Hero excerpt of the About text. Shown in full when it fits, otherwise cut
-// at the nearest sentence end (preferred) or word boundary — never mid-word.
-function makeExcerpt(text: string, maxLength: number): string {
-  if (text.length <= maxLength) return text;
-  const slice = text.slice(0, maxLength);
-  const sentenceEnd = Math.max(
-    slice.lastIndexOf(". "),
-    slice.lastIndexOf("? "),
-    slice.lastIndexOf("! "),
-  );
-  if (sentenceEnd > maxLength * 0.6) {
-    return slice.slice(0, sentenceEnd + 1);
-  }
-  const lastSpace = slice.lastIndexOf(" ");
-  const cut = lastSpace > 0 ? slice.slice(0, lastSpace) : slice;
-  return `${cut.trimEnd()}…`;
-}
