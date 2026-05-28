@@ -315,7 +315,7 @@ export function BookingForm({
             </button>
           </div>
 
-          <div className="mt-7 grid gap-8 sm:grid-cols-[auto_1fr] sm:gap-10">
+          <div className="mt-7 grid gap-8 sm:grid-cols-[28rem_1fr] sm:gap-10">
             <Calendar
               selected={date || null}
               minDate={minDate}

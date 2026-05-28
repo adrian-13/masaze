@@ -112,7 +112,7 @@ export function Calendar({
     selected && rangeEnd ? (rangeEnd < selected ? selected : rangeEnd) : selected ?? null;
 
   return (
-    <div className="mx-auto w-full max-w-[24rem]">
+    <div className="mx-auto w-full max-w-[24rem] sm:max-w-[28rem]">
       <div className="flex items-center justify-between">
         <button
           type="button"
