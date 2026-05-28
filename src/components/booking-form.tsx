@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { formatDateLong, formatDuration, formatPrice } from "@/lib/format";
 import { Calendar } from "@/components/calendar";
 
@@ -70,6 +70,46 @@ export function BookingForm({
   const requestId = useRef(0);
   const monthReqId = useRef(0);
   const selectedService = services.find((s) => s.id === serviceId);
+
+  // Refs for each step section so we can smoothly scroll the user to the
+  // currently-active step when they advance or go back. `scroll-mt-*` on each
+  // section keeps the heading clear of the sticky site header.
+  const step1Ref = useRef<HTMLElement>(null);
+  const step2Ref = useRef<HTMLElement>(null);
+  const step3Ref = useRef<HTMLElement>(null);
+  const isInitialMount = useRef(true);
+  const prevStep = useRef(step);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    // On initial page mount, always start at the top — the user has just
+    // navigated here from elsewhere and expects to see the heading.
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      window.scrollTo({ top: 0 });
+      prevStep.current = step;
+      return;
+    }
+    if (prevStep.current === step) return;
+    prevStep.current = step;
+    // Wait one paint so the new section is fully laid out before we scroll.
+    // Use window.scrollTo with a manually computed offset (more reliable than
+    // scrollIntoView, which silently no-ops in some headless browsers).
+    // ~80px offset leaves room for the sticky site header above the heading.
+    const t = setTimeout(() => {
+      const target =
+        step === 2 ? step2Ref.current : step === 3 ? step3Ref.current : step1Ref.current;
+      if (!target) return;
+      const HEADER_OFFSET = 80;
+      const top = target.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET;
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({
+        top: Math.max(0, top),
+        behavior: prefersReduced ? "auto" : "smooth",
+      });
+    }, 60);
+    return () => clearTimeout(t);
+  }, [step]);
 
   // Fetch available slots for a service + date. Called from the date picker so
   // we avoid an effect (and the cascading-render it would cause).
@@ -182,7 +222,7 @@ export function BookingForm({
 
       {/* Step 1 — service */}
       {step === 1 && (
-        <section className="animate-rise mt-8">
+        <section ref={step1Ref} className="animate-rise mt-8 scroll-mt-20">
           <h2 className="text-2xl text-bark">1. Vyberte si masáž</h2>
           <p className="mt-2 text-stone">{intro}</p>
           {services.length === 0 ? (
@@ -237,7 +277,7 @@ export function BookingForm({
        * <section>, which becomes a containing block for the sticky action bar
        * and breaks viewport-pinning on mobile. */}
       {step === 2 && selectedService && (
-        <section className="mt-8">
+        <section ref={step2Ref} className="mt-8 scroll-mt-20">
           <h2 className="text-2xl text-bark">2. Vyberte deň a čas</h2>
           <div className="mt-4 rounded-xl bg-sand/50 px-4 py-3 text-sm text-bark">
             <span className="font-medium">{selectedService.name}</span>
@@ -329,7 +369,7 @@ export function BookingForm({
 
       {/* Step 3 — contact details */}
       {step === 3 && selectedService && (
-        <section className="mt-8">
+        <section ref={step3Ref} className="mt-8 scroll-mt-20">
           <h2 className="text-2xl text-bark">3. Vaše údaje</h2>
 
           <div className="mt-4 rounded-xl bg-sand/50 px-4 py-3 text-sm text-bark">

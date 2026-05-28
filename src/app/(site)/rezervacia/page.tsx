@@ -34,13 +34,13 @@ export default async function ReservationPage({
   const maxDate = addDaysISO(today, rules.maxAdvanceDays);
 
   return (
-    <div className="mx-auto max-w-3xl px-5 py-14">
+    <div className="mx-auto max-w-3xl px-5 pb-16 pt-8 sm:pt-10">
       <h1 className="text-3xl text-bark sm:text-4xl">Online rezervácia</h1>
       <p className="mt-3 text-stone">
         Rezervácia je nezáväzná žiadosť — termín vám potvrdím osobne.
       </p>
 
-      <div className="mt-10 rounded-3xl border border-sand-dark/60 bg-white/50 p-6 sm:p-8">
+      <div className="mt-8">
         <BookingForm
           services={services}
           intro={settings.bookingIntro}

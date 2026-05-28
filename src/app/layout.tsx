@@ -60,10 +60,9 @@ export default function RootLayout({
   return (
     <html
       lang="sk"
-      className="h-full"
       style={theme.vars as React.CSSProperties}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="flex min-h-screen flex-col">
         {/* Seed-selected web fonts (hoisted to <head> by React). */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
