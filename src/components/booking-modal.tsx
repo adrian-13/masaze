@@ -90,17 +90,20 @@ export function BookingProvider({
         onCancel={close}
         onClick={(e) => {
           // Clicks on the backdrop register on the <dialog> element itself.
-          if (e.target === dialogRef.current) close();
+          // Disabled on mobile (the dialog fills the whole viewport — there is
+          // no visible backdrop to click).
+          if (e.target === dialogRef.current && window.innerWidth >= 640) close();
         }}
-        className="booking-dialog m-auto w-[calc(100%-1.5rem)] max-w-4xl rounded-3xl bg-cream p-0 text-bark shadow-2xl backdrop:bg-bark/50"
+        className="booking-dialog m-0 h-dvh max-h-dvh w-full max-w-full rounded-none bg-cream p-0 text-bark shadow-2xl backdrop:bg-bark/50 sm:m-auto sm:h-auto sm:max-h-[calc(100dvh-2rem)] sm:w-[calc(100%-1.5rem)] sm:max-w-4xl sm:rounded-3xl"
       >
         {state.open && (
-          <div className="relative max-h-[85vh] overflow-y-auto px-5 py-8 sm:px-8">
+          <div className="relative h-full overflow-y-auto px-5 pb-[max(2rem,env(safe-area-inset-bottom))] pt-[max(3rem,env(safe-area-inset-top))] sm:h-auto sm:max-h-[85vh] sm:px-8 sm:pb-8 sm:pt-8">
             <button
               type="button"
               onClick={close}
               aria-label="Zavrieť"
-              className="absolute right-3 top-3 z-10 grid h-9 w-9 place-items-center rounded-full text-stone transition-colors hover:bg-sand hover:text-bark"
+              className="absolute right-3 z-10 grid h-10 w-10 place-items-center rounded-full bg-cream/80 text-stone backdrop-blur-sm transition-colors hover:bg-sand hover:text-bark sm:h-9 sm:w-9 sm:bg-transparent sm:backdrop-blur-none"
+              style={{ top: "max(0.75rem, env(safe-area-inset-top))" }}
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M6 6l12 12M18 6 6 18" strokeLinecap="round" />
