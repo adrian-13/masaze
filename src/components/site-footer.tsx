@@ -19,7 +19,7 @@ export function SiteFooter({
         <div>
           {settings.logoImage && (
             <div
-              className="mb-3 h-12 w-12 rounded-full bg-cover bg-center bg-no-repeat"
+              className="mb-3 h-14 w-14 rounded-full bg-cover bg-center bg-no-repeat shadow-sm ring-1 ring-clay/20"
               style={{ backgroundImage: `url(${settings.logoImage})` }}
               role="img"
               aria-label={settings.businessName}

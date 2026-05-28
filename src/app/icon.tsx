@@ -25,9 +25,16 @@ export default async function Icon() {
   if (logoSrc) {
     return new ImageResponse(
       (
-        // Plain <img> via Satori — fastest path and keeps the logo's exact look.
+        // border-radius directly on <img> — Satori's overflow:hidden does not
+        // reliably clip children, but the radius on the image itself does.
         // eslint-disable-next-line @next/next/no-img-element
-        <img src={logoSrc} width={size.width} height={size.height} style={{ objectFit: "contain" }} alt="" />
+        <img
+          src={logoSrc}
+          width={size.width}
+          height={size.height}
+          style={{ objectFit: "cover", borderRadius: size.width / 2 }}
+          alt=""
+        />
       ),
       { ...size },
     );
