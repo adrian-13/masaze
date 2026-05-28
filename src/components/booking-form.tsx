@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { formatDateLong, formatDuration, formatPrice } from "@/lib/format";
 import { Calendar } from "@/components/calendar";
 
@@ -67,6 +68,16 @@ export function BookingForm({
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [success, setSuccess] = useState<SuccessSummary | null>(null);
 
+  // Where the user is trying to leave to — drives the "Naozaj odísť?" modal.
+  const [confirmLeaveTo, setConfirmLeaveTo] = useState<string | null>(null);
+  const router = useRouter();
+
+  // "In progress" = the user has typed/picked something they would lose by
+  // leaving. We deliberately don't flag the case where only the service is
+  // chosen — that's a single click to redo.
+  const isDirty =
+    !success && (Boolean(date) || name.length > 0 || email.length > 0 || phone.length > 0);
+
   const requestId = useRef(0);
   const monthReqId = useRef(0);
   const selectedService = services.find((s) => s.id === serviceId);
@@ -130,6 +141,75 @@ export function BookingForm({
     }, 60);
     return () => clearTimeout(t);
   }, [step]);
+
+  // Warn the user before they accidentally lose an in-progress booking.
+  // Hard exits (refresh, tab close, address-bar nav) → browser's own dialog
+  // via beforeunload. SPA <Link> clicks won't trigger beforeunload, so we
+  // also catch those at the document level and show our own confirmation.
+  useEffect(() => {
+    if (!isDirty) return;
+    const handler = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+      // Legacy browsers need a truthy returnValue to actually prompt.
+      e.returnValue = "";
+    };
+    window.addEventListener("beforeunload", handler);
+    return () => window.removeEventListener("beforeunload", handler);
+  }, [isDirty]);
+
+  useEffect(() => {
+    if (!isDirty) return;
+    const handler = (e: MouseEvent) => {
+      // Let modified clicks (new tab / window / download) pass through.
+      if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      const anchor = (e.target as Element | null)?.closest?.("a[href]") as
+        | HTMLAnchorElement
+        | null;
+      if (!anchor) return;
+      // Skip explicit new-window / download anchors.
+      if (anchor.target === "_blank" || anchor.hasAttribute("download")) return;
+      const href = anchor.getAttribute("href");
+      if (!href || href.startsWith("#")) return;
+      let url: URL;
+      try {
+        url = new URL(href, window.location.href);
+      } catch {
+        return;
+      }
+      // Don't intercept tel: / mailto: / other non-http protocols — those
+      // hand off to the OS app rather than navigating away.
+      if (url.protocol !== "http:" && url.protocol !== "https:") return;
+      // Same URL? Nothing to lose.
+      if (
+        url.pathname === window.location.pathname &&
+        url.search === window.location.search
+      ) {
+        return;
+      }
+      // preventDefault stops the browser nav AND signals Next.js's <Link>
+      // onClick handler (which checks defaultPrevented) to skip router.push.
+      e.preventDefault();
+      setConfirmLeaveTo(href);
+    };
+    // Capture phase so we run before <Link>'s React onClick, which would
+    // otherwise navigate via router.push before our handler sees the event.
+    document.addEventListener("click", handler, true);
+    return () => document.removeEventListener("click", handler, true);
+  }, [isDirty]);
+
+  function leaveTo(href: string) {
+    setConfirmLeaveTo(null);
+    try {
+      const url = new URL(href, window.location.href);
+      if (url.origin === window.location.origin) {
+        router.push(url.pathname + url.search + url.hash);
+        return;
+      }
+    } catch {
+      // fall through to a hard navigation
+    }
+    window.location.href = href;
+  }
 
   // Fetch available slots for a service + date. Called from the date picker so
   // we avoid an effect (and the cascading-render it would cause).
@@ -484,6 +564,48 @@ export function BookingForm({
             </div>
           </form>
         </section>
+      )}
+
+      {/* Soft "are you sure you want to leave?" prompt, shown when a SPA <Link>
+        * click is intercepted while there's unsaved booking data. */}
+      {confirmLeaveTo && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-bark/45 px-5 backdrop-blur-sm"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="leave-confirm-title"
+          onClick={() => setConfirmLeaveTo(null)}
+        >
+          <div
+            className="animate-rise w-full max-w-sm rounded-3xl border border-sand-dark/60 bg-cream p-7 shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h3 id="leave-confirm-title" className="font-serif text-xl text-bark">
+              Naozaj chcete odísť?
+            </h3>
+            <p className="mt-3 text-sm leading-relaxed text-stone">
+              Máte rozpracovanú rezerváciu. Ak teraz odídete, vaše údaje sa
+              stratia.
+            </p>
+            <div className="mt-7 flex justify-end gap-3">
+              <button
+                type="button"
+                onClick={() => setConfirmLeaveTo(null)}
+                className="rounded-full border border-sand-dark px-5 py-2 text-sm font-semibold text-bark transition-colors hover:bg-sand"
+                autoFocus
+              >
+                Zostať
+              </button>
+              <button
+                type="button"
+                onClick={() => leaveTo(confirmLeaveTo)}
+                className="rounded-full bg-clay px-5 py-2 text-sm font-semibold text-cream transition-colors hover:bg-clay-dark"
+              >
+                Odísť
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
