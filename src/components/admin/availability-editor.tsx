@@ -48,7 +48,7 @@ export function AvailabilityEditor({ windows }: { windows: Window[] }) {
         </p>
         <label className="mt-4 block">
           <span className="mb-1 block text-sm font-medium text-bark">Deň</span>
-          <select name="weekday" defaultValue={1} className="form-input">
+          <select name="weekday" defaultValue={1} className="form-select">
             {WEEKDAY_ORDER.map((wd) => (
               <option key={wd} value={wd}>
                 {WEEKDAYS_SK[wd]}
@@ -59,7 +59,7 @@ export function AvailabilityEditor({ windows }: { windows: Window[] }) {
         <div className="mt-3 grid grid-cols-2 gap-3">
           <label className="block">
             <span className="mb-1 block text-sm font-medium text-bark">Od</span>
-            <select name="startTime" defaultValue="09:00" required className="form-input">
+            <select name="startTime" defaultValue="09:00" required className="form-select">
               {TIME_OPTIONS.map((t) => (
                 <option key={t} value={t}>{t}</option>
               ))}
@@ -67,7 +67,7 @@ export function AvailabilityEditor({ windows }: { windows: Window[] }) {
           </label>
           <label className="block">
             <span className="mb-1 block text-sm font-medium text-bark">Do</span>
-            <select name="endTime" defaultValue="17:00" required className="form-input">
+            <select name="endTime" defaultValue="17:00" required className="form-select">
               {TIME_OPTIONS.map((t) => (
                 <option key={t} value={t}>{t}</option>
               ))}

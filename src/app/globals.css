@@ -70,6 +70,32 @@ h4 {
   color: color-mix(in srgb, var(--color-stone) 70%, transparent);
 }
 
+/* Same surface as .form-input but with the native browser chevron stripped
+   away and a custom SVG arrow drawn in stone — so <select> triggers sit in
+   the warm palette instead of showing the OS' default dropdown styling. */
+.form-select {
+  width: 100%;
+  border-radius: 0.75rem;
+  border: 1px solid color-mix(in srgb, var(--color-sand-dark) 60%, transparent);
+  background: hsl(36 25% 97%);
+  padding: 0.75rem 2.5rem 0.75rem 0.9rem;
+  color: var(--color-bark);
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%237a695c' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.9rem center;
+}
+
+.form-select:focus {
+  outline: none;
+  border-color: var(--color-clay);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-clay) 22%, transparent);
+}
+
 /* --- Decorative effects (hero) --- */
 
 /* Subtle film grain for warmth; sits over flat fills so they don't look
