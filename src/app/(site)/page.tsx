@@ -205,25 +205,21 @@ export default async function HomePage() {
 
       {/* Ohlasy klientov — sociálny dôkaz pred záverečnou výzvou */}
       {testimonials.length > 0 && (
-        <section className="reveal mx-auto max-w-6xl scroll-mt-20 px-5 py-20 sm:py-24">
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="flex items-center justify-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-clay">
-              <span className="h-px w-8 bg-clay/50" aria-hidden />
+        <section className="reveal mx-auto max-w-6xl scroll-mt-20 px-5 py-24 sm:py-28">
+          <div className="max-w-2xl">
+            <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay">
+              <span className="h-px w-8 bg-sage/60" aria-hidden />
               Referencie
-              <span className="h-px w-8 bg-clay/50" aria-hidden />
             </p>
-            <h2 className="mt-4 text-3xl text-bark sm:text-4xl">Ohlasy klientov</h2>
+            <h2 className="mt-5 text-3xl text-bark sm:text-4xl">Ohlasy klientov</h2>
           </div>
           <div className="mt-14 grid gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
             {testimonials.map((t) => (
-              <figure key={t.id} className="flex flex-col items-center px-2 text-center">
-                <span className="font-serif text-6xl leading-[0.5] text-clay/25" aria-hidden>
-                  &ldquo;
-                </span>
-                <blockquote className="mt-4 leading-relaxed text-bark">
-                  {t.text}
+              <figure key={t.id} className="flex flex-col items-start">
+                <blockquote className="text-base leading-relaxed text-bark sm:text-lg">
+                  „{t.text}"
                 </blockquote>
-                <figcaption className="mt-5 text-sm font-semibold text-clay">
+                <figcaption className="mt-5 text-sm font-medium text-stone">
                   — {t.author}
                 </figcaption>
               </figure>
