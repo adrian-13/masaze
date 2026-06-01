@@ -251,7 +251,7 @@ export default async function HomePage() {
         />
         <div className="grain absolute inset-0 opacity-[0.08]" aria-hidden />
         <Sprig className="absolute -bottom-12 right-2 h-72 rotate-[16deg] text-cream/10 sm:right-16" />
-        <div className="relative mx-auto max-w-3xl px-5 py-24 text-center sm:py-28">
+        <div className="relative mx-auto max-w-3xl px-5 py-20 text-center sm:py-24">
           <LeafMark className="mx-auto h-9 w-9 text-clay" />
           <h2 className="mt-5 text-3xl text-cream sm:text-4xl">
             Doprajte si chvíľu pre seba

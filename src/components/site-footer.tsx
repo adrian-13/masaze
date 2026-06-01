@@ -2,6 +2,15 @@ import Link from "next/link";
 import type { Settings } from "@/lib/settings";
 import type { OpeningHoursGroup } from "@/lib/format";
 
+// Pulls the @handle out of a profile URL ("instagram.com/foo" → "foo"),
+// falls back to the network's name when the URL doesn't follow the
+// standard shape. Both used in the footer's social row.
+function handleFromUrl(url: string, host: string, fallback: string): string {
+  const pattern = new RegExp(`${host.replace(/\./g, "\\.")}/([^/?#]+)`, "i");
+  const m = url.match(pattern);
+  return m ? `@${m[1]}` : fallback;
+}
+
 export function SiteFooter({
   settings,
   openingHours,
@@ -11,6 +20,12 @@ export function SiteFooter({
 }) {
   const year = new Date().getFullYear();
   const hasSocials = Boolean(settings.instagramUrl || settings.facebookUrl);
+  const igLabel = settings.instagramUrl
+    ? handleFromUrl(settings.instagramUrl, "instagram.com", "Instagram")
+    : "";
+  const fbLabel = settings.facebookUrl
+    ? handleFromUrl(settings.facebookUrl, "facebook.com", "Facebook")
+    : "";
 
   return (
     <footer id="kontakt" className="border-t border-sand-dark/40 bg-sand/40">
@@ -22,20 +37,20 @@ export function SiteFooter({
             {settings.tagline}
           </p>
           {hasSocials && (
-            <div className="mt-5 flex gap-2.5">
+            <div className="mt-5 flex flex-col gap-2.5 text-sm">
               {settings.instagramUrl && (
                 <a
                   href={settings.instagramUrl}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label="Instagram"
-                  className="grid h-9 w-9 place-items-center rounded-full border border-sand-dark/70 text-stone transition-colors hover:border-clay hover:text-clay"
+                  className="group inline-flex items-center gap-2.5 text-stone transition-colors hover:text-clay"
                 >
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
                     <rect x="3" y="3" width="18" height="18" rx="5" />
                     <circle cx="12" cy="12" r="4" />
                     <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
                   </svg>
+                  <span>{igLabel}</span>
                 </a>
               )}
               {settings.facebookUrl && (
@@ -43,12 +58,12 @@ export function SiteFooter({
                   href={settings.facebookUrl}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label="Facebook"
-                  className="grid h-9 w-9 place-items-center rounded-full border border-sand-dark/70 text-stone transition-colors hover:border-clay hover:text-clay"
+                  className="group inline-flex items-center gap-2.5 text-stone transition-colors hover:text-clay"
                 >
-                  <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
                     <path d="M14 9h2.5l.5-3H14V4.6c0-.8.3-1.3 1.4-1.3H17V.6C16.6.5 15.6.4 14.5.4 12.2.4 11 1.7 11 4.1V6H8.5v3H11v9h3V9Z" />
                   </svg>
+                  <span>{fbLabel}</span>
                 </a>
               )}
             </div>
@@ -89,7 +104,7 @@ export function SiteFooter({
               {openingHours.map((g) => (
                 <li key={g.days} className="flex justify-between gap-4">
                   <span className="text-stone">{g.days}</span>
-                  <span className="font-medium text-bark">{g.hours}</span>
+                  <span className="text-right font-medium text-bark">{g.hours}</span>
                 </li>
               ))}
             </ul>
