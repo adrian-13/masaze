@@ -20,6 +20,7 @@ export function SettingsForm({ settings }: { settings: Settings }) {
           label="Hlavný slogan (hero)"
           defaultValue={settings.tagline}
           full
+          hint="Slovo alebo frázu obklopenú hviezdičkami zobrazí kurzívou (napr. „čas pre *seba*“ → „čas pre seba“)."
         />
         <Text name="aboutTitle" label="Nadpis sekcie „O mne“" defaultValue={settings.aboutTitle} />
         <Text name="phone" label="Telefón" defaultValue={settings.phone} />
