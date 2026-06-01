@@ -208,7 +208,9 @@ function paragraph(html: string): string {
 function sectionLabel(text: string): string {
   const p = palette();
   const f = fonts();
-  return `<p style="margin:24px 0 8px;font-family:${f.body};font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:${p.clay};font-weight:600;">${esc(text)}</p>`;
+  // letter-spacing 2.5px at 11px ≈ 0.22em, same tracking the site uses for
+  // every kicker (hero, cenník, footer column heads, admin nav, etc.).
+  return `<p style="margin:24px 0 8px;font-family:${f.body};font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:${p.clay};font-weight:600;">${esc(text)}</p>`;
 }
 
 // A receipt-style key/value table. `value` is raw HTML (escape before passing).
@@ -224,7 +226,7 @@ function kvTable(rows: { label: string; value: string }[]): string {
       </tr>`,
     )
     .join("");
-  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:4px 0;background:${p.cream};border:1px solid ${p.sandDark};border-radius:14px;border-collapse:separate;">${body}</table>`;
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:4px 0;background:${p.cream};border:1px solid ${p.sandDark};border-radius:16px;border-collapse:separate;">${body}</table>`;
 }
 
 function detailTable(b: BookingEmailData, accent: string): string {
@@ -243,9 +245,9 @@ function detailTable(b: BookingEmailData, accent: string): string {
 function notePanel(note: string): string {
   const p = palette();
   const f = fonts();
-  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:14px 0 2px;background:${p.clayTint};border-radius:12px;">
-    <tr><td style="padding:14px 16px;font-family:${f.body};">
-      <span style="display:block;margin-bottom:4px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:${p.clay};font-weight:600;">Poznámka od klienta</span>
+  return `<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:14px 0 2px;background:${p.clayTint};border-radius:16px;">
+    <tr><td style="padding:16px 18px;font-family:${f.body};">
+      <span style="display:block;margin-bottom:4px;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:${p.clay};font-weight:600;">Poznámka od klienta</span>
       <span style="font-size:14px;line-height:1.6;color:${p.bark};">${esc(note)}</span>
     </td></tr>
   </table>`;
@@ -253,9 +255,12 @@ function notePanel(note: string): string {
 
 function button(href: string, label: string, bg: string): string {
   const f = fonts();
+  // 16px radius matches the rounded-2xl shape the rest of the site now uses
+  // for primary CTAs. Both the td bg and the inner <a> carry the radius so
+  // every mail client renders the rectangle the same way.
   return `<table role="presentation" cellpadding="0" cellspacing="0" style="margin:24px 0 4px;"><tr>
-    <td align="center" bgcolor="${bg}" style="border-radius:999px;">
-      <a href="${esc(href)}" style="display:inline-block;padding:13px 32px;font-family:${f.body};font-size:14px;font-weight:600;color:#ffffff;text-decoration:none;border-radius:999px;">${esc(label)}</a>
+    <td align="center" bgcolor="${bg}" style="border-radius:16px;">
+      <a href="${esc(href)}" style="display:inline-block;padding:14px 32px;font-family:${f.body};font-size:14px;font-weight:600;color:#ffffff;text-decoration:none;border-radius:16px;">${esc(label)}</a>
     </td>
   </tr></table>`;
 }
@@ -297,7 +302,7 @@ function shell(opts: {
         <td align="center" style="padding:34px 16px;">
           <table role="presentation" width="560" cellpadding="0" cellspacing="0" style="width:560px;max-width:100%;">
             <tr>
-              <td align="center" style="padding-bottom:16px;font-family:${f.body};font-size:12px;letter-spacing:3px;text-transform:uppercase;color:${p.clay};font-weight:600;">${esc(opts.businessName)}</td>
+              <td align="center" style="padding-bottom:16px;font-family:${f.body};font-size:12px;letter-spacing:2.6px;text-transform:uppercase;color:${p.clay};font-weight:600;">${esc(opts.businessName)}</td>
             </tr>
             <tr>
               <td style="background:#ffffff;border:1px solid ${p.sandDark};border-radius:20px;overflow:hidden;">
