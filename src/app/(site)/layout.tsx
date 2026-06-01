@@ -21,7 +21,7 @@ export default async function SiteLayout({
 
   return (
     <div className="flex min-h-full flex-col">
-      <SiteHeader businessName={settings.businessName} logoImage={settings.logoImage} />
+      <SiteHeader businessName={settings.businessName} />
       <main className="flex-1">{children}</main>
       <SiteFooter settings={settings} openingHours={openingHours} />
     </div>

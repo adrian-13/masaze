@@ -9,46 +9,38 @@ const NAV_LINKS = [
   { href: "/#kontakt", label: "Kontakt" },
 ];
 
-export function SiteHeader({
-  businessName,
-  logoImage,
-}: {
-  businessName: string;
-  logoImage?: string;
-}) {
+export function SiteHeader({ businessName }: { businessName: string }) {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-sand-dark/60 bg-cream/85 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
+    <header className="sticky top-0 z-40 border-b border-sand-dark/40 bg-cream/85 backdrop-blur">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5">
+        {/* Wordmark — quiet serif, no icon. Carries the whole brand on its own
+            (Aesop / Susanne Kaufmann register). */}
         <Link
           href="/"
-          className="flex items-center gap-2.5 font-serif text-xl text-bark transition-colors hover:text-clay sm:gap-3"
+          className="font-serif text-xl text-bark transition-colors hover:text-clay sm:text-2xl"
           onClick={() => setOpen(false)}
         >
-          {logoImage && (
-            <span
-              className="block h-10 w-10 shrink-0 rounded-full bg-cover bg-center bg-no-repeat shadow-sm ring-1 ring-clay/20 sm:h-11 sm:w-11"
-              style={{ backgroundImage: `url(${logoImage})` }}
-              aria-hidden
-            />
-          )}
-          <span>{businessName}</span>
+          {businessName}
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        {/* Desktop nav — sans capitals, generous letter-spacing. The CTA is a
+            small outline button so the primary action lives in the hero, not
+            up here. */}
+        <nav className="hidden items-center gap-10 md:flex">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium text-stone transition-colors hover:text-bark"
+              className="text-[11px] font-semibold uppercase tracking-[0.22em] text-stone transition-colors hover:text-bark"
             >
               {link.label}
             </Link>
           ))}
           <Link
             href="/rezervacia"
-            className="rounded-full bg-clay px-5 py-2 text-sm font-semibold text-cream transition-colors hover:bg-clay-dark"
+            className="inline-flex items-center justify-center rounded-full border border-clay px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay transition-colors hover:bg-clay hover:text-cream focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40"
           >
             Rezervovať
           </Link>
@@ -72,14 +64,14 @@ export function SiteHeader({
       </div>
 
       {open && (
-        <nav className="border-t border-sand-dark/60 bg-cream px-5 py-4 md:hidden">
-          <div className="flex flex-col gap-2">
+        <nav className="border-t border-sand-dark/40 bg-cream px-5 py-4 md:hidden">
+          <div className="flex flex-col gap-1">
             {NAV_LINKS.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-2 text-base font-medium text-stone hover:bg-sand hover:text-bark"
+                className="rounded-lg px-3 py-2.5 text-xs font-semibold uppercase tracking-[0.22em] text-stone transition-colors hover:bg-sand hover:text-bark"
               >
                 {link.label}
               </Link>
@@ -87,7 +79,7 @@ export function SiteHeader({
             <Link
               href="/rezervacia"
               onClick={() => setOpen(false)}
-              className="mt-1 rounded-full bg-clay px-5 py-2.5 text-center text-base font-semibold text-cream hover:bg-clay-dark"
+              className="mt-2 inline-flex items-center justify-center rounded-full border border-clay px-5 py-2.5 text-xs font-semibold uppercase tracking-[0.22em] text-clay hover:bg-clay hover:text-cream"
             >
               Rezervovať
             </Link>
