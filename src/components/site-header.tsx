@@ -33,71 +33,87 @@ export function SiteHeader({ businessName }: { businessName: string }) {
   }, [open]);
 
   return (
-    <header className="header-on-scroll sticky top-0 z-40 border-b border-sand-dark/40 bg-cream/85 backdrop-blur">
-      <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5">
-        {/* Wordmark — quiet serif, no icon. Carries the whole brand on its own
-            (Aesop / Susanne Kaufmann register). */}
-        <Link
-          href="/"
-          className="font-serif text-xl text-bark transition-colors hover:text-clay sm:text-2xl"
-          onClick={() => setOpen(false)}
-        >
-          {businessName}
-        </Link>
-
-        {/* Desktop nav — sans capitals, generous letter-spacing. The CTA is a
-            small outline button so the primary action lives in the hero, not
-            up here. */}
-        <nav className="hidden items-center gap-10 md:flex">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-[11px] font-semibold uppercase tracking-[0.22em] text-stone transition-colors hover:text-bark"
-            >
-              {link.label}
-            </Link>
-          ))}
+    <>
+      <header className="header-on-scroll sticky top-0 z-40 border-b border-sand-dark/40 bg-cream/85 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5">
+          {/* Wordmark — quiet serif, no icon. Carries the whole brand on its own
+              (Aesop / Susanne Kaufmann register). */}
           <Link
-            href="/rezervacia"
-            className="inline-flex items-center justify-center rounded-full border border-clay px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay transition-colors hover:bg-clay hover:text-cream focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40"
+            href="/"
+            className="font-serif text-xl text-bark transition-colors hover:text-clay sm:text-2xl"
+            onClick={() => setOpen(false)}
           >
-            Rezervovať
+            {businessName}
           </Link>
-        </nav>
 
-        <button
-          type="button"
-          aria-label={open ? "Zavrieť menu" : "Otvoriť menu"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="relative z-50 flex h-10 w-10 items-center justify-center rounded-lg text-bark md:hidden"
-        >
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            {open ? (
-              <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
-            ) : (
+          {/* Desktop nav — sans capitals, generous letter-spacing. The CTA is a
+              small outline button so the primary action lives in the hero, not
+              up here. */}
+          <nav className="hidden items-center gap-10 md:flex">
+            {NAV_LINKS.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                className="text-[11px] font-semibold uppercase tracking-[0.22em] text-stone transition-colors hover:text-bark"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <Link
+              href="/rezervacia"
+              className="inline-flex items-center justify-center rounded-full border border-clay px-5 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay transition-colors hover:bg-clay hover:text-cream focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40"
+            >
+              Rezervovať
+            </Link>
+          </nav>
+
+          <button
+            type="button"
+            aria-label="Otvoriť menu"
+            aria-expanded={open}
+            onClick={() => setOpen(true)}
+            className="flex h-10 w-10 items-center justify-center rounded-lg text-bark md:hidden"
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M3 6h18M3 12h18M3 18h18" strokeLinecap="round" />
-            )}
-          </svg>
-        </button>
-      </div>
+            </svg>
+          </button>
+        </div>
+      </header>
 
-      {/* Fullscreen mobile menu — editorial overlay rather than a dropdown.
-          Large serif nav items, staggered entrance, a dedicated Rezervovať
-          CTA at the bottom, safe-area insets respected. */}
+      {/* Fullscreen mobile menu — rendered as a sibling of <header> so it isn't
+          trapped inside the header's backdrop-filter containing block (that
+          would make fixed inset-0 resolve against the header element, not the
+          viewport). */}
       {open && (
         <div
-          className="animate-rise fixed inset-0 z-40 flex flex-col bg-cream md:hidden"
+          className="animate-rise fixed inset-0 z-50 flex flex-col bg-cream md:hidden"
           style={{ animationDuration: "0.35s" }}
         >
-          {/* Match the header's height so the X icon (in the header above)
-              appears to "sit on" the overlay. */}
+          {/* Top bar mirrors the public header: brand wordmark left, close X
+              right. Safe-area inset honoured for iOS notch. */}
           <div
-            className="h-[73px] shrink-0 border-b border-sand-dark/30"
-            style={{ paddingTop: "env(safe-area-inset-top)" }}
-            aria-hidden
-          />
+            className="flex items-center justify-between border-b border-sand-dark/30 px-5 py-5"
+            style={{ paddingTop: "max(1.25rem, env(safe-area-inset-top))" }}
+          >
+            <Link
+              href="/"
+              onClick={() => setOpen(false)}
+              className="font-serif text-xl text-bark transition-colors hover:text-clay sm:text-2xl"
+            >
+              {businessName}
+            </Link>
+            <button
+              type="button"
+              aria-label="Zavrieť menu"
+              onClick={() => setOpen(false)}
+              className="flex h-10 w-10 items-center justify-center rounded-lg text-bark transition-colors hover:bg-sand focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40"
+            >
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
+              </svg>
+            </button>
+          </div>
 
           <nav className="flex flex-1 flex-col items-start justify-center gap-9 px-8 sm:px-12">
             {NAV_LINKS.map((link, i) => (
@@ -130,6 +146,6 @@ export function SiteHeader({ businessName }: { businessName: string }) {
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }
