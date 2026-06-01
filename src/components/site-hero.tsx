@@ -34,14 +34,14 @@ export function SiteHero({ settings }: { settings: Settings }) {
             </h1>
 
             <p
-              className="animate-rise mt-5 max-w-xl text-lg leading-relaxed text-stone"
+              className="animate-rise mt-5 max-w-xl text-lg leading-relaxed text-stone lg:mt-8"
               style={{ animationDelay: "210ms" }}
             >
               {settings.heroIntro}
             </p>
 
             <div
-              className="animate-rise mt-10"
+              className="animate-rise mt-10 lg:mt-14"
               style={{ animationDelay: "290ms" }}
             >
               <Link
