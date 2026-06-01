@@ -290,8 +290,43 @@ export function generateTheme(seed: string): Theme {
   };
 }
 
-// Reads the active seed from the environment. Falls back to a stable default so
-// the site always renders, even without configuration.
+// "Teplé ticho" — the hand-tuned warm-natural-wellness preset that ships
+// with the site. Aesop / Susanne Kaufmann territory: oat + linen
+// backgrounds, espresso text, dusty clay-rose primary, muted eucalyptus
+// sage accent, Fraunces (light/regular serif) + Hanken Grotesk (humanist
+// sans). Generated themes via `generateTheme(seed)` still work for the
+// preview script — but the live site renders this fixed palette.
+const WARM_SILENCE_THEME: Theme = {
+  seed: "warm-silence",
+  archetype: "Warm Silence",
+  shape: "Balanced",
+  fonts: { display: "Fraunces", body: "Hanken Grotesk" },
+  fontHref:
+    "https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap",
+  vars: {
+    // Neutrals — warm oat / linen base.
+    "--color-cream": "hsl(36 25% 93%)",
+    "--color-sand": "hsl(34 22% 86%)",
+    "--color-sand-dark": "hsl(32 18% 75%)",
+    "--color-bark": "hsl(22 25% 18%)",
+    "--color-stone": "hsl(25 14% 42%)",
+    // Primary — dusty clay rose, lighter / dustier than the previous mauve.
+    "--color-clay": "hsl(8 30% 55%)",
+    "--color-clay-dark": "hsl(8 36% 42%)",
+    // Secondary — muted eucalyptus sage, used very sparingly.
+    "--color-sage": "hsl(130 14% 50%)",
+    "--color-sage-dark": "hsl(130 17% 36%)",
+    // Fonts.
+    "--font-display": "'Fraunces'",
+    "--font-body": "'Hanken Grotesk'",
+    // Shape — Balanced (existing scale).
+    "--radius-lg": "0.5rem",
+    "--radius-xl": "0.75rem",
+    "--radius-2xl": "1rem",
+    "--radius-3xl": "1.5rem",
+  },
+};
+
 export function getTheme(): Theme {
-  return generateTheme(process.env.DESIGN_SEED || DEFAULT_SEED);
+  return WARM_SILENCE_THEME;
 }
