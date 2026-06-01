@@ -53,11 +53,10 @@ export default async function HomePage() {
       {/* Ako to funguje — left-aligned, inline "01 — Title" pattern */}
       <section className="reveal mx-auto max-w-5xl px-5 py-24 sm:py-28">
         <div className="max-w-2xl">
-          <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay">
+          <h2 className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay">
             <span className="h-px w-8 bg-sage/60" aria-hidden />
-            Ako to funguje
-          </p>
-          <h2 className="mt-5 text-3xl text-bark sm:text-4xl">Vaša cesta k uvoľneniu</h2>
+            Vaša cesta k uvoľneniu
+          </h2>
           <p className="mt-4 max-w-md text-stone">
             Len tri jednoduché kroky vás delia od chvíle pokoja a regenerácie.
           </p>
