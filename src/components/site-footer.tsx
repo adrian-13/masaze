@@ -13,8 +13,8 @@ export function SiteFooter({
   const hasSocials = Boolean(settings.instagramUrl || settings.facebookUrl);
 
   return (
-    <footer id="kontakt" className="border-t border-sand-dark/60 bg-sand/40">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-3">
+    <footer id="kontakt" className="border-t border-sand-dark/40 bg-sand/40">
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 sm:grid-cols-2 lg:grid-cols-3">
         {/* Brand */}
         <div>
           <h3 className="font-serif text-xl text-bark">{settings.businessName}</h3>
@@ -57,7 +57,7 @@ export function SiteFooter({
 
         {/* Kontakt */}
         <div>
-          <h4 className="text-sm font-semibold uppercase tracking-wide text-stone">
+          <h4 className="text-[11px] font-semibold uppercase tracking-[0.22em] text-stone">
             Kontakt
           </h4>
           <ul className="mt-4 space-y-2.5 text-sm text-bark">
@@ -82,7 +82,7 @@ export function SiteFooter({
         {/* Otváracie hodiny */}
         {openingHours.length > 0 && (
           <div>
-            <h4 className="text-sm font-semibold uppercase tracking-wide text-stone">
+            <h4 className="text-[11px] font-semibold uppercase tracking-[0.22em] text-stone">
               Otváracie hodiny
             </h4>
             <ul className="mt-4 space-y-2.5 text-sm">
@@ -97,10 +97,21 @@ export function SiteFooter({
         )}
       </div>
 
-      <div className="border-t border-sand-dark/60">
-        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 px-5 py-5 text-xs text-stone sm:flex-row">
+      <div className="border-t border-sand-dark/40">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-5 py-5 text-xs text-stone sm:flex-row">
           <p>
             © {year} {settings.businessName}
+          </p>
+          <p className="text-center">
+            Stránku vytvoril{" "}
+            <a
+              href="https://www.itpd.sk"
+              target="_blank"
+              rel="noreferrer"
+              className="font-medium text-bark transition-colors hover:text-clay"
+            >
+              Adrián Javorček
+            </a>
           </p>
           <Link href="/admin" className="transition-colors hover:text-clay">
             Prihlásenie
