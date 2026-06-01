@@ -243,7 +243,7 @@ export default async function HomePage() {
         </section>
       )}
 
-      {/* Záverečná výzva */}
+      {/* Záverečná výzva — vedomá centrovaná výnimka */}
       <section className="reveal relative overflow-hidden bg-bark">
         <div
           className="absolute -left-24 -top-24 h-80 w-80 rounded-full bg-clay/25 blur-3xl"
@@ -251,7 +251,7 @@ export default async function HomePage() {
         />
         <div className="grain absolute inset-0 opacity-[0.08]" aria-hidden />
         <Sprig className="absolute -bottom-12 right-2 h-72 rotate-[16deg] text-cream/10 sm:right-16" />
-        <div className="relative mx-auto max-w-3xl px-5 py-20 text-center sm:py-24">
+        <div className="relative mx-auto max-w-3xl px-5 py-24 text-center sm:py-28">
           <LeafMark className="mx-auto h-9 w-9 text-clay" />
           <h2 className="mt-5 text-3xl text-cream sm:text-4xl">
             Doprajte si chvíľu pre seba
@@ -261,7 +261,7 @@ export default async function HomePage() {
           </p>
           <Link
             href="/rezervacia"
-            className="mt-9 inline-block rounded-full bg-cream px-8 py-3 text-base font-semibold text-bark shadow-sm transition-colors hover:bg-sand"
+            className="mt-10 inline-flex items-center justify-center rounded-2xl bg-cream px-7 py-4 text-base font-semibold leading-none text-bark shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors hover:bg-sand focus:outline-none focus-visible:ring-2 focus-visible:ring-cream/40"
           >
             Rezervovať termín
           </Link>
