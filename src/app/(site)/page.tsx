@@ -50,8 +50,12 @@ export default async function HomePage() {
     <>
       <SiteHero settings={settings} />
 
-      {/* Ako to funguje — left-aligned, inline "01 — Title" pattern */}
-      <section className="reveal mx-auto max-w-6xl px-5 py-20 sm:py-24">
+      {/* Ako to funguje — left-aligned, inline "01 — Title" pattern.
+        * Asymmetric padding: full pt for the section break above, halved pb
+        * so the gap to the cenník below doesn't read as a void. The steps
+        * block is content-light by design, so a symmetric pb would leave
+        * a visible "empty" zone under it. */}
+      <section className="reveal mx-auto max-w-6xl px-5 pt-20 pb-10 sm:pt-24 sm:pb-12">
         <div className="max-w-2xl">
           <h2 className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay">
             <span className="h-px w-8 bg-sage/60" aria-hidden />
@@ -89,8 +93,10 @@ export default async function HomePage() {
             <span className="h-px w-8 bg-sage/60" aria-hidden />
             Ponuka
           </p>
-          <h2 className="mt-5 text-3xl text-bark sm:text-4xl">Služby a cenník</h2>
-          <p className="mt-4 max-w-md text-stone">
+          <h2 className="mt-6 text-3xl leading-tight text-bark sm:mt-7 sm:text-4xl">
+            Služby a cenník
+          </h2>
+          <p className="mt-5 max-w-md text-stone">
             Vyberte si masáž, ktorá vám sadne. Termín si jednoducho zarezervujete online.
           </p>
         </div>
@@ -98,15 +104,15 @@ export default async function HomePage() {
         {services.length === 0 ? (
           <p className="mt-12 text-stone">Služby budú čoskoro doplnené.</p>
         ) : (
-          <ul className="mt-14 border-b border-sand-dark/50">
+          <ul className="mt-12 border-b border-sand-dark/50">
             {services.map((service) => (
               <li key={service.id} className="border-t border-sand-dark/50">
                 <Link
                   href={`/rezervacia?service=${service.id}`}
-                  className="group flex flex-col gap-5 py-9 transition-colors hover:bg-sand/40 sm:flex-row sm:items-baseline sm:justify-between sm:gap-10 sm:py-10 -mx-2 px-2 sm:-mx-3 sm:px-3"
+                  className="group flex flex-col gap-5 py-10 transition-colors hover:bg-sand/40 sm:flex-row sm:items-baseline sm:justify-between sm:gap-10 sm:py-12 -mx-2 px-2 sm:-mx-3 sm:px-3"
                 >
                   <div className="sm:max-w-md">
-                    <h3 className="text-2xl text-bark transition-colors group-hover:text-clay">
+                    <h3 className="text-2xl leading-tight text-bark transition-colors group-hover:text-clay">
                       {service.name}
                     </h3>
                     {service.description && (
