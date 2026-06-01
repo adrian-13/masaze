@@ -94,9 +94,27 @@ h4 {
   }
 }
 
-/* Plays once on mount (hero load, step changes, slot reveals). */
+/* Plays once on mount (hero load, step changes, slot reveals). Slow, exhale-
+   like easing — the "Teplé ticho" motion language is unhurried and quiet. */
 .animate-rise {
-  animation: rise 0.55s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation: rise 0.85s cubic-bezier(0.16, 0.7, 0.2, 1) both;
+}
+
+/* Hero photo reveal: a soft scale-down from 1.05 → 1 plus a fade. Pairs with
+   .animate-rise so the image settles slowly while the text rises beside it. */
+@keyframes image-reveal {
+  from {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-image-reveal {
+  animation: image-reveal 1.4s cubic-bezier(0.16, 0.7, 0.2, 1) both;
 }
 
 @keyframes pop {
@@ -143,7 +161,8 @@ h4 {
 
 @media (prefers-reduced-motion: reduce) {
   .animate-rise,
-  .animate-pop {
+  .animate-pop,
+  .animate-image-reveal {
     animation: none;
   }
 }

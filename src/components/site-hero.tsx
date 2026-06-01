@@ -48,7 +48,7 @@ export function SiteHero({ settings }: { settings: Settings }) {
         <div className="flex flex-col justify-center px-5 py-20 sm:py-24 lg:py-0 lg:pl-[max(1.25rem,calc((100vw-72rem)/2))] lg:pr-12">
           <p
             className="animate-rise flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.22em] text-clay"
-            style={{ animationDelay: "60ms" }}
+            style={{ animationDelay: "120ms" }}
           >
             <span className="h-px w-8 bg-sage/60" aria-hidden />
             {settings.businessName}
@@ -56,21 +56,21 @@ export function SiteHero({ settings }: { settings: Settings }) {
 
           <h1
             className="animate-rise mt-6 max-w-xl text-4xl leading-[1.08] text-bark sm:text-5xl md:text-[3.4rem]"
-            style={{ animationDelay: "130ms" }}
+            style={{ animationDelay: "280ms" }}
           >
             {renderTagline(settings.tagline)}
           </h1>
 
           <p
             className="animate-rise mt-5 max-w-md text-lg leading-relaxed text-stone lg:mt-8"
-            style={{ animationDelay: "210ms" }}
+            style={{ animationDelay: "440ms" }}
           >
             {settings.heroIntro}
           </p>
 
           <div
             className="animate-rise mt-10 lg:mt-14"
-            style={{ animationDelay: "290ms" }}
+            style={{ animationDelay: "600ms" }}
           >
             <Link
               href="/rezervacia"
@@ -103,13 +103,10 @@ export function SiteHero({ settings }: { settings: Settings }) {
 
         {/* Visual column — full-bleed to the right edge, soft "doorway"
             curve only on the lg+ left side. */}
-        <div
-          className="animate-rise relative min-h-[60vh] overflow-hidden bg-gradient-to-b from-sand to-clay/20 shadow-2xl lg:min-h-0 lg:rounded-l-[5rem]"
-          style={{ animationDelay: "180ms" }}
-        >
+        <div className="relative min-h-[60vh] overflow-hidden bg-gradient-to-b from-sand to-clay/20 shadow-2xl lg:min-h-0 lg:rounded-l-[5rem]">
           {settings.heroImage && (
             <div
-              className="absolute inset-0 bg-cover bg-center"
+              className="animate-image-reveal absolute inset-0 bg-cover bg-center"
               style={{
                 backgroundImage: `url(${settings.heroImage})`,
                 // Warm grade: drop a hair of saturation, gentle warmth + a
