@@ -104,12 +104,14 @@ export function SiteHero({ settings }: { settings: Settings }) {
           </div>
         </div>
 
-        {/* Visual column — full-bleed to the right edge of the viewport,
-            with a classic arch silhouette (rounded-t-full on lg+ so the
-            top curves into a semicircle, rounded-b-3xl softens the
-            bottom). The right edge still anchors to the viewport, only
-            the top "rises" out of the cream page. */}
-        <div className="relative min-h-[60vh] overflow-hidden bg-gradient-to-b from-sand to-clay/20 shadow-2xl lg:min-h-0 lg:rounded-t-full lg:rounded-b-3xl">
+        {/* Visual column — full-bleed to the right edge of the viewport.
+            On lg+ the photo dissolves into the oat page through a soft
+            left-edge gradient mask: no arch, no rectangle, just a quiet
+            fade. The right edge anchors to the viewport, the top and
+            bottom meet the cream sections above/below as soft, masked
+            edges. Mobile keeps a defined rounded band — the dissolve
+            only reads on desktop where the text column sits beside. */}
+        <div className="relative min-h-[60vh] overflow-hidden bg-gradient-to-b from-sand to-clay/20 shadow-2xl lg:min-h-0 lg:bg-none lg:shadow-none lg:[mask-image:linear-gradient(to_right,transparent_0%,black_22%)] lg:[-webkit-mask-image:linear-gradient(to_right,transparent_0%,black_22%)]">
           {settings.heroImage && (
             <>
               <div
