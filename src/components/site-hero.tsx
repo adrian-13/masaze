@@ -43,9 +43,12 @@ export function SiteHero({ settings }: { settings: Settings }) {
       />
 
       <div className="grid flex-1 items-stretch lg:grid-cols-[5fr_7fr]">
-        {/* Text column — vertically centred, left-padded to align with
-            the rest of the site's max-w-6xl content. */}
-        <div className="flex flex-col justify-center px-5 py-20 sm:py-24 lg:py-0 lg:pl-[max(1.25rem,calc((100vw-72rem)/2))] lg:pr-12">
+        {/* Text column — vertically centred. The extra lg:pt nudges the
+            block downward so the optical centre of the text matches the
+            optical centre of the photo (instead of sitting above it).
+            Left padding tracks max-w-6xl so the type aligns with the rest
+            of the site. */}
+        <div className="flex flex-col justify-center px-5 py-20 sm:py-24 lg:py-0 lg:pl-[max(1.25rem,calc((100vw-72rem)/2))] lg:pr-12 lg:pt-[6vh]">
           <p
             className="animate-rise flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.22em] text-clay"
             style={{ animationDelay: "120ms" }}
@@ -74,7 +77,7 @@ export function SiteHero({ settings }: { settings: Settings }) {
           >
             <Link
               href="/rezervacia"
-              className="inline-flex items-center justify-center rounded-full bg-clay px-7 py-4 text-base font-semibold leading-none text-cream shadow-sm transition-colors hover:bg-clay-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40"
+              className="inline-flex items-center justify-center rounded-2xl bg-clay px-7 py-4 text-base font-semibold leading-none text-cream shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors hover:bg-clay-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40"
             >
               Rezervujte si termín online
             </Link>
@@ -105,20 +108,30 @@ export function SiteHero({ settings }: { settings: Settings }) {
             curve only on the lg+ left side. */}
         <div className="relative min-h-[60vh] overflow-hidden bg-gradient-to-b from-sand to-clay/20 shadow-2xl lg:min-h-0 lg:rounded-l-[5rem]">
           {settings.heroImage && (
-            <div
-              className="animate-image-reveal absolute inset-0 bg-cover bg-center"
-              style={{
-                backgroundImage: `url(${settings.heroImage})`,
-                // Warm grade: drop a hair of saturation, gentle warmth + a
-                // touch more contrast, so the photo sits inside the oat
-                // palette instead of bringing a cool blue cast with it.
-                filter: "saturate(0.9) contrast(1.05) sepia(0.08) brightness(1.02)",
-              }}
-              role="img"
-              aria-label={settings.businessName}
-            />
+            <>
+              <div
+                className="animate-image-reveal absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(${settings.heroImage})`,
+                  // Warm grade: heavier sepia + slight desaturation pull the
+                  // cool blue cast out of the highlights; lower contrast lifts
+                  // the shadows; a touch of brightness opens the whole frame.
+                  // The result reads as one material with the oat left column,
+                  // not a "photo glued onto a panel".
+                  filter:
+                    "saturate(0.78) brightness(1.06) contrast(0.94) sepia(0.2)",
+                }}
+                role="img"
+                aria-label={settings.businessName}
+              />
+              {/* Warm wash on top — multiplies a low-opacity clay tint so the
+                  highlights pick up extra warmth without darkening the photo. */}
+              <div
+                className="absolute inset-0 bg-clay/[0.07] mix-blend-multiply"
+                aria-hidden
+              />
+            </>
           )}
-          <Sprig className="absolute right-6 top-10 h-32 -rotate-45 text-sage/70 lg:right-12 lg:top-16 lg:h-44" />
           <div className="grain absolute inset-0 opacity-[0.08]" aria-hidden />
         </div>
       </div>
