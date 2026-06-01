@@ -51,7 +51,7 @@ export default async function HomePage() {
       <SiteHero settings={settings} />
 
       {/* Ako to funguje — left-aligned, inline "01 — Title" pattern */}
-      <section className="reveal mx-auto max-w-5xl px-5 py-24 sm:py-28">
+      <section className="reveal mx-auto max-w-6xl px-5 py-24 sm:py-28">
         <div className="max-w-2xl">
           <h2 className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay">
             <span className="h-px w-8 bg-sage/60" aria-hidden />
@@ -83,7 +83,7 @@ export default async function HomePage() {
       </section>
 
       {/* Služby — editoriálny cenník: celý riadok je Link s textovým CTA */}
-      <section id="sluzby" className="reveal mx-auto max-w-5xl scroll-mt-20 px-5 py-24 sm:py-28">
+      <section id="sluzby" className="reveal mx-auto max-w-6xl scroll-mt-20 px-5 py-24 sm:py-28">
         <div className="max-w-2xl">
           <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay">
             <span className="h-px w-8 bg-sage/60" aria-hidden />
@@ -151,8 +151,8 @@ export default async function HomePage() {
       {/* O mne */}
       <section id="o-mne" className="reveal scroll-mt-20 bg-sand/40 py-24 sm:py-28">
         <div
-          className={`mx-auto grid gap-x-14 gap-y-10 px-5 lg:items-center ${
-            settings.aboutImage ? "max-w-5xl lg:grid-cols-[1fr_1.05fr]" : "max-w-2xl"
+          className={`mx-auto grid max-w-6xl gap-x-14 gap-y-10 px-5 lg:items-center ${
+            settings.aboutImage ? "lg:grid-cols-[1fr_1.05fr]" : ""
           }`}
         >
           {settings.aboutImage && (
@@ -176,7 +176,7 @@ export default async function HomePage() {
             </div>
           )}
           {/* Príbeh */}
-          <div>
+          <div className={settings.aboutImage ? "" : "max-w-2xl"}>
             <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay">
               <span className="h-px w-8 bg-sage/60" aria-hidden />
               {settings.aboutTitle}

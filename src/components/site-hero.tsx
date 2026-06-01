@@ -48,7 +48,7 @@ export function SiteHero({ settings }: { settings: Settings }) {
             optical centre of the photo (instead of sitting above it).
             Left padding tracks max-w-6xl so the type aligns with the rest
             of the site. */}
-        <div className="flex flex-col justify-center px-5 py-20 sm:py-24 lg:py-0 lg:pl-[max(1.25rem,calc((100vw-72rem)/2))] lg:pr-12 lg:pt-[6vh]">
+        <div className="flex flex-col justify-center px-5 py-20 sm:py-24 lg:py-0 lg:pl-[max(1.25rem,calc((100vw-72rem)/2+1.25rem))] lg:pr-12 lg:pt-[6vh]">
           <p
             className="animate-rise flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.22em] text-clay"
             style={{ animationDelay: "120ms" }}
