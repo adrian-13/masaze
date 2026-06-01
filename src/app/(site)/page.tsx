@@ -57,11 +57,14 @@ export default async function HomePage() {
         * a visible "empty" zone under it. */}
       <section className="reveal mx-auto max-w-6xl px-5 pt-20 pb-10 sm:pt-24 sm:pb-12">
         <div className="max-w-2xl">
-          <h2 className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay">
+          <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay">
             <span className="h-px w-8 bg-sage/60" aria-hidden />
             Vaša cesta k uvoľneniu
+          </p>
+          <h2 className="mt-6 text-3xl leading-tight text-bark sm:mt-7 sm:text-4xl">
+            Tri kroky k uvoľneniu
           </h2>
-          <p className="mt-4 max-w-md text-stone">
+          <p className="mt-5 max-w-md text-stone">
             Len tri jednoduché kroky vás delia od chvíle pokoja a regenerácie.
           </p>
         </div>
