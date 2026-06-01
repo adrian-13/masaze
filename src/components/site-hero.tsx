@@ -2,7 +2,11 @@ import Link from "next/link";
 import type { Settings } from "@/lib/settings";
 import { Sprig } from "@/components/decorations";
 
-const FEATURES = ["Online rezervácia", "Individuálny prístup", "Diskrétne prostredie"];
+const FEATURES = [
+  "Jednoduchá online rezervácia",
+  "Individuálny prístup ku každému klientovi",
+  "Diskrétne a komfortné prostredie",
+];
 
 export function SiteHero({ settings }: { settings: Settings }) {
   return (
@@ -48,14 +52,14 @@ export function SiteHero({ settings }: { settings: Settings }) {
                 href="/rezervacia"
                 className="inline-block rounded-full bg-clay px-7 py-3 text-base font-semibold text-cream shadow-sm transition-colors hover:bg-clay-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40"
               >
-                Rezervovať termín
+                Rezervujte si termín online
               </Link>
               <div className="mt-4">
                 <Link
                   href="#sluzby"
                   className="group inline-flex items-center gap-1.5 text-sm font-medium text-clay transition-colors hover:text-clay-dark"
                 >
-                  alebo si najprv pozrite služby
+                  alebo si prezrite dostupné služby
                   <svg
                     width="14"
                     height="14"

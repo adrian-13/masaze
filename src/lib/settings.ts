@@ -7,9 +7,9 @@ export const DEFAULT_SETTINGS = {
   // Business profile / page content
   businessName: "Masáže Patrícia",
   ownerName: "Patrícia",
-  tagline: "Doprajte svojmu telu chvíľu pokoja a regenerácie.",
+  tagline: "Uvoľnite napätie. Obnovte energiu. Doprajte si čas pre seba.",
   heroIntro:
-    "Vyštudovaná a certifikovaná masérka. Verím, že kvalitná masáž dokáže uvoľniť nielen telo, ale aj myseľ.",
+    "Profesionálne masáže v príjemnom a diskrétnom prostredí. Ako vyštudovaná a certifikovaná masérka sa zameriavam na individuálny prístup a starostlivosť, ktorá pomáha telu regenerovať a mysli nájsť rovnováhu.",
   aboutTitle: "O mne",
   aboutText:
     "Volám sa Patrícia a venujem sa masážam ako vyštudovaná a certifikovaná masérka. Verím, že kvalitná masáž dokáže uvoľniť nielen telo, ale aj myseľ. Ku každému klientovi pristupujem individuálne a s rešpektom k jeho potrebám.",
