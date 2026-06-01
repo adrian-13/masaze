@@ -17,21 +17,30 @@ export function AdminNav({ businessName }: { businessName: string }) {
   const pathname = usePathname();
 
   return (
-    <header className="border-b border-sand-dark/60 bg-white/60">
+    <header className="border-b border-sand-dark/40 bg-cream/85 backdrop-blur">
       <div className="mx-auto max-w-6xl px-5">
-        <div className="flex flex-wrap items-center justify-between gap-3 py-4">
-          <Link href="/admin" className="font-serif text-lg text-bark">
+        <div className="flex flex-wrap items-center justify-between gap-3 py-5">
+          <Link
+            href="/admin"
+            className="font-serif text-lg text-bark transition-colors hover:text-clay sm:text-xl"
+          >
             {businessName}
-            <span className="ml-2 text-sm font-sans text-stone">· admin</span>
+            <span className="ml-3 text-[11px] font-semibold uppercase tracking-[0.18em] text-clay">
+              admin
+            </span>
           </Link>
-          <div className="flex items-center gap-3">
-            <Link href="/" className="text-sm text-stone hover:text-bark" target="_blank">
-              Zobraziť stránku ↗
+          <div className="flex items-center gap-4">
+            <Link
+              href="/"
+              className="text-[11px] font-semibold uppercase tracking-[0.22em] text-stone transition-colors hover:text-bark"
+              target="_blank"
+            >
+              Zobraziť stránku
             </Link>
             <form action={logout}>
               <button
                 type="submit"
-                className="rounded-full border border-sand-dark px-4 py-1.5 text-sm font-medium text-bark hover:bg-sand"
+                className="inline-flex items-center justify-center rounded-2xl border border-sand-dark/60 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.22em] text-bark transition-colors hover:bg-sand focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40"
               >
                 Odhlásiť
               </button>
@@ -49,7 +58,7 @@ export function AdminNav({ businessName }: { businessName: string }) {
               <Link
                 key={link.href}
                 href={link.href}
-                className={`whitespace-nowrap border-b-2 px-4 py-3 text-sm font-medium transition-colors ${
+                className={`whitespace-nowrap border-b-2 px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.22em] transition-colors ${
                   active
                     ? "border-clay text-bark"
                     : "border-transparent text-stone hover:text-bark"

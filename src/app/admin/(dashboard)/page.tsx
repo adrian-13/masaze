@@ -58,7 +58,7 @@ export default async function AdminBookingsPage() {
       </div>
 
       <section className="mt-8">
-        <h2 className="text-sm font-semibold uppercase tracking-wide text-stone">
+        <h2 className="text-[11px] font-semibold uppercase tracking-[0.22em] text-stone">
           Nadchádzajúce
         </h2>
         {upcoming.length === 0 ? (
@@ -76,7 +76,7 @@ export default async function AdminBookingsPage() {
 
       {past.length > 0 && (
         <section className="mt-10">
-          <h2 className="text-sm font-semibold uppercase tracking-wide text-stone">
+          <h2 className="text-[11px] font-semibold uppercase tracking-[0.22em] text-stone">
             Staršie
           </h2>
           <div className="mt-4 space-y-3 opacity-80">
@@ -92,7 +92,7 @@ export default async function AdminBookingsPage() {
 
 function BookingCard({ booking, past = false }: { booking: Booking; past?: boolean }) {
   return (
-    <article className="rounded-2xl border border-sand-dark/60 bg-white/60 p-5">
+    <article className="rounded-2xl border border-sand-dark/40 bg-cream/70 p-5">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <div className="flex items-center gap-3">
@@ -136,7 +136,7 @@ function BookingCard({ booking, past = false }: { booking: Booking; past?: boole
       )}
 
       {!past && (
-        <div className="mt-4 flex flex-wrap gap-2 border-t border-sand-dark/50 pt-4">
+        <div className="mt-4 flex flex-wrap gap-2 border-t border-sand-dark/40 pt-4">
           {booking.status !== "confirmed" && (
             <StatusButton id={booking.id} status="confirmed" label="Potvrdiť" variant="sage" />
           )}
@@ -174,8 +174,8 @@ function StatusButton({
 }) {
   const className =
     variant === "sage"
-      ? "rounded-full bg-sage px-4 py-1.5 text-sm font-semibold text-cream hover:bg-sage-dark"
-      : "rounded-full border border-sand-dark px-4 py-1.5 text-sm font-medium text-bark hover:bg-sand";
+      ? "inline-flex items-center justify-center rounded-xl bg-sage px-4 py-2 text-sm font-semibold leading-none text-cream transition-colors hover:bg-sage-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-sage/40"
+      : "inline-flex items-center justify-center rounded-xl border border-sand-dark/60 px-4 py-2 text-sm font-medium leading-none text-bark transition-colors hover:bg-sand focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40";
   return (
     <form action={setBookingStatus}>
       <input type="hidden" name="id" value={id} />

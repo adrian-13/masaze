@@ -86,7 +86,7 @@ export function ServiceCreateForm() {
       <button
         type="submit"
         disabled={pending}
-        className="mt-4 rounded-full bg-clay px-6 py-2.5 text-sm font-semibold text-cream hover:bg-clay-dark disabled:opacity-50"
+        className="mt-4 inline-flex items-center justify-center rounded-2xl bg-clay px-6 py-3 text-sm font-semibold leading-none text-cream shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors hover:bg-clay-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40 disabled:opacity-50"
       >
         {pending ? "Pridávam…" : "Pridať službu"}
       </button>
@@ -175,7 +175,7 @@ export function ServiceRow({ service }: { service: Service }) {
           <button
             type="submit"
             disabled={pending}
-            className="rounded-full bg-clay px-5 py-2 text-sm font-semibold text-cream hover:bg-clay-dark disabled:opacity-50"
+            className="inline-flex items-center justify-center rounded-xl bg-clay px-5 py-2.5 text-sm font-semibold leading-none text-cream transition-colors hover:bg-clay-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40 disabled:opacity-50"
           >
             {pending ? "Ukladám…" : "Uložiť"}
           </button>

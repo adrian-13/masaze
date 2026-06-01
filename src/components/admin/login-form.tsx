@@ -35,7 +35,7 @@ export function LoginForm() {
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-full bg-clay px-6 py-2.5 text-sm font-semibold text-cream transition-colors hover:bg-clay-dark disabled:opacity-50"
+        className="inline-flex w-full items-center justify-center rounded-2xl bg-clay px-6 py-3 text-sm font-semibold leading-none text-cream shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors hover:bg-clay-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40 disabled:opacity-50"
       >
         {pending ? "Prihlasujem…" : "Prihlásiť sa"}
       </button>

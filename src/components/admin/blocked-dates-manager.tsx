@@ -159,7 +159,7 @@ export function BlockedDatesManager({
               type="button"
               onClick={blockSelection}
               disabled={!start || pending}
-              className="rounded-full bg-clay px-6 py-2.5 text-sm font-semibold text-cream transition-colors hover:bg-clay-dark disabled:cursor-not-allowed disabled:opacity-50"
+              className="inline-flex items-center justify-center rounded-2xl bg-clay px-6 py-3 text-sm font-semibold leading-none text-cream shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors hover:bg-clay-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {pending ? "Blokujem…" : "Zablokovať"}
             </button>
