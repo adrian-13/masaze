@@ -50,11 +50,19 @@ export default async function HomePage() {
     <>
       <SiteHero settings={settings} />
 
-      {/* Ako to funguje — editoriálne číslovky, žiadny ornament */}
+      {/* Ako to funguje — editoriálne číslovky, ľavé zarovnanie, vlastný hlavičkový pattern */}
       <section className="reveal mx-auto max-w-5xl px-5 py-24 sm:py-28">
-        <ol className="grid gap-y-14 sm:grid-cols-3 sm:gap-x-10">
+        <div className="max-w-2xl">
+          <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay">
+            <span className="h-px w-8 bg-sage/60" aria-hidden />
+            Ako to funguje
+          </p>
+          <h2 className="mt-5 text-3xl text-bark sm:text-4xl">Tri kroky k uvoľneniu</h2>
+        </div>
+
+        <ol className="mt-14 grid gap-y-12 sm:grid-cols-3 sm:gap-x-12">
           {STEPS.map((step, i) => (
-            <li key={step.title} className="flex flex-col items-center px-2 text-center">
+            <li key={step.title} className="flex flex-col items-start">
               <span
                 className="font-serif text-5xl font-light leading-none text-clay/40 sm:text-6xl"
                 aria-hidden
@@ -62,7 +70,7 @@ export default async function HomePage() {
                 {String(i + 1).padStart(2, "0")}
               </span>
               <h3 className="mt-6 text-xl text-bark">{step.title}</h3>
-              <p className="mt-3 max-w-[17rem] text-sm leading-relaxed text-stone">
+              <p className="mt-3 max-w-[18rem] text-sm leading-relaxed text-stone">
                 {step.text}
               </p>
             </li>
