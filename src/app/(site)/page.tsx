@@ -8,15 +8,15 @@ import { LeafMark, Sprig } from "@/components/decorations";
 const STEPS = [
   {
     title: "Vyberte si masáž",
-    text: "Prezrite si ponuku a vyberte tú, ktorá vám najviac sadne.",
+    text: "Prezrite si ponuku a vyberte si masáž, ktorá najlepšie vyhovuje vašim potrebám.",
   },
   {
-    title: "Zarezervujte termín",
-    text: "Online si zvolíte voľný deň a čas. Zaberie to len minútu.",
+    title: "Rezervujte si termín",
+    text: "Vyberte si voľný deň a čas prostredníctvom online rezervácie.",
   },
   {
-    title: "Príďte a uvoľnite sa",
-    text: "O zvyšok sa postarám ja. Vy si doprajete chvíľu pokoja.",
+    title: "Doprajte si oddych",
+    text: "Príďte si oddýchnuť a načerpať novú energiu. O vaše pohodlie sa postarám ja.",
   },
 ];
 
@@ -50,27 +50,32 @@ export default async function HomePage() {
     <>
       <SiteHero settings={settings} />
 
-      {/* Ako to funguje — editoriálne číslovky, ľavé zarovnanie, vlastný hlavičkový pattern */}
+      {/* Ako to funguje — left-aligned, inline "01 — Title" pattern */}
       <section className="reveal mx-auto max-w-5xl px-5 py-24 sm:py-28">
         <div className="max-w-2xl">
           <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay">
             <span className="h-px w-8 bg-sage/60" aria-hidden />
             Ako to funguje
           </p>
-          <h2 className="mt-5 text-3xl text-bark sm:text-4xl">Tri kroky k uvoľneniu</h2>
+          <h2 className="mt-5 text-3xl text-bark sm:text-4xl">Vaša cesta k uvoľneniu</h2>
+          <p className="mt-4 max-w-md text-stone">
+            Len tri jednoduché kroky vás delia od chvíle pokoja a regenerácie.
+          </p>
         </div>
 
         <ol className="mt-14 grid gap-y-12 sm:grid-cols-3 sm:gap-x-12">
           {STEPS.map((step, i) => (
             <li key={step.title} className="flex flex-col items-start">
-              <span
-                className="font-serif text-5xl font-light leading-none text-clay/40 sm:text-6xl"
-                aria-hidden
-              >
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <h3 className="mt-6 text-xl text-bark">{step.title}</h3>
-              <p className="mt-3 max-w-[18rem] text-sm leading-relaxed text-stone">
+              <h3 className="text-xl text-bark">
+                <span className="mr-2.5 font-serif font-light italic text-clay/55">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <span className="mr-2.5 text-clay/35" aria-hidden>
+                  —
+                </span>
+                {step.title}
+              </h3>
+              <p className="mt-3 max-w-[20rem] text-sm leading-relaxed text-stone">
                 {step.text}
               </p>
             </li>
