@@ -189,13 +189,54 @@ h4 {
       animation-timeline: view();
       animation-range: entry 5% cover 22%;
     }
+
+    /* Smaller in-section items (cenník rows, testimonials, step cards):
+       softer travel, slightly later trigger so each item reveals
+       independently after the parent header has already arrived. */
+    .reveal-item {
+      animation: rise-in-soft linear both;
+      animation-timeline: view();
+      animation-range: entry 15% cover 35%;
+    }
+  }
+}
+
+@keyframes rise-in-soft {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Sticky header gets a subtle shadow + slightly more opaque background as
+   the user scrolls past the hero. Quiet depth, no slam. */
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .header-on-scroll {
+      animation: header-elevate linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 160px;
+    }
+  }
+}
+
+@keyframes header-elevate {
+  to {
+    box-shadow: 0 1px 16px -8px color-mix(in srgb, var(--color-bark) 25%, transparent);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-rise,
   .animate-pop,
-  .animate-image-reveal {
+  .animate-image-reveal,
+  .reveal,
+  .reveal-item,
+  .header-on-scroll {
     animation: none;
   }
 }

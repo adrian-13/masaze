@@ -71,7 +71,7 @@ export default async function HomePage() {
 
         <ol className="mt-14 grid gap-y-12 sm:grid-cols-3 sm:gap-x-12">
           {STEPS.map((step, i) => (
-            <li key={step.title} className="flex flex-col items-start">
+            <li key={step.title} className="reveal-item flex flex-col items-start">
               <h3 className="text-xl text-bark">
                 <span className="mr-2.5 font-serif font-light italic text-clay/55">
                   {String(i + 1).padStart(2, "0")}
@@ -109,7 +109,7 @@ export default async function HomePage() {
         ) : (
           <ul className="mt-12 border-b border-sand-dark/50">
             {services.map((service) => (
-              <li key={service.id} className="border-t border-sand-dark/50">
+              <li key={service.id} className="reveal-item border-t border-sand-dark/50">
                 <Link
                   href={`/rezervacia?service=${service.id}`}
                   className="group flex flex-col gap-5 py-10 transition-colors hover:bg-sand/40 sm:flex-row sm:items-baseline sm:justify-between sm:gap-10 sm:py-12 -mx-2 px-2 sm:-mx-3 sm:px-3"
@@ -250,7 +250,7 @@ export default async function HomePage() {
           </div>
           <div className="mt-14 grid gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
             {testimonials.map((t) => (
-              <figure key={t.id} className="flex flex-col items-start">
+              <figure key={t.id} className="reveal-item flex flex-col items-start">
                 <blockquote className="text-base leading-relaxed text-bark sm:text-lg">
                   {`„${t.text}"`}
                 </blockquote>

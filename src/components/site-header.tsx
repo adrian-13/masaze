@@ -33,7 +33,7 @@ export function SiteHeader({ businessName }: { businessName: string }) {
   }, [open]);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-sand-dark/40 bg-cream/85 backdrop-blur">
+    <header className="header-on-scroll sticky top-0 z-40 border-b border-sand-dark/40 bg-cream/85 backdrop-blur">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-5">
         {/* Wordmark — quiet serif, no icon. Carries the whole brand on its own
             (Aesop / Susanne Kaufmann register). */}
