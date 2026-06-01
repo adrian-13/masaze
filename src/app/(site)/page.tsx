@@ -51,7 +51,7 @@ export default async function HomePage() {
       <SiteHero settings={settings} />
 
       {/* Ako to funguje — left-aligned, inline "01 — Title" pattern */}
-      <section className="reveal mx-auto max-w-6xl px-5 py-24 sm:py-28">
+      <section className="reveal mx-auto max-w-6xl px-5 py-20 sm:py-24">
         <div className="max-w-2xl">
           <h2 className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay">
             <span className="h-px w-8 bg-sage/60" aria-hidden />
@@ -83,7 +83,7 @@ export default async function HomePage() {
       </section>
 
       {/* Služby — editoriálny cenník: celý riadok je Link s textovým CTA */}
-      <section id="sluzby" className="reveal mx-auto max-w-6xl scroll-mt-20 px-5 py-24 sm:py-28">
+      <section id="sluzby" className="reveal mx-auto max-w-6xl scroll-mt-20 px-5 py-20 sm:py-24">
         <div className="max-w-2xl">
           <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay">
             <span className="h-px w-8 bg-sage/60" aria-hidden />
@@ -103,7 +103,7 @@ export default async function HomePage() {
               <li key={service.id} className="border-t border-sand-dark/50">
                 <Link
                   href={`/rezervacia?service=${service.id}`}
-                  className="group flex flex-col gap-5 py-9 transition-colors hover:bg-sand/40 sm:flex-row sm:items-center sm:justify-between sm:gap-10 sm:py-10 -mx-2 px-2 sm:-mx-3 sm:px-3"
+                  className="group flex flex-col gap-5 py-9 transition-colors hover:bg-sand/40 sm:flex-row sm:items-baseline sm:justify-between sm:gap-10 sm:py-10 -mx-2 px-2 sm:-mx-3 sm:px-3"
                 >
                   <div className="sm:max-w-md">
                     <h3 className="text-2xl text-bark transition-colors group-hover:text-clay">
@@ -149,7 +149,7 @@ export default async function HomePage() {
       </section>
 
       {/* O mne */}
-      <section id="o-mne" className="reveal scroll-mt-20 bg-sand/40 py-24 sm:py-28">
+      <section id="o-mne" className="reveal scroll-mt-20 bg-sand/40 py-20 sm:py-24">
         <div
           className={`mx-auto grid max-w-6xl gap-x-14 gap-y-10 px-5 lg:items-center ${
             settings.aboutImage ? "lg:grid-cols-[1fr_1.05fr]" : ""
@@ -161,16 +161,25 @@ export default async function HomePage() {
                 className="absolute inset-0 bg-cover bg-center"
                 style={{
                   backgroundImage: `url(${settings.aboutImage})`,
-                  // Warm grade — same vocabulary as the hero so the two
-                  // photos sit on the same material register, no cool blue
-                  // / purple cast fighting the oat palette.
-                  filter: "saturate(0.78) brightness(1.06) contrast(0.94) sepia(0.2)",
+                  // Stronger warm grade than the hero: the about.jpg has a
+                  // lavender / purple wall behind the masseuse that the hero
+                  // filter alone doesn't fully neutralise. Heavier sepia +
+                  // lower saturation pull the violet cast toward warm beige.
+                  filter: "saturate(0.7) brightness(1.07) contrast(0.92) sepia(0.32)",
                 }}
                 role="img"
                 aria-label={`Masáž — ${settings.businessName}`}
               />
+              {/* Clay multiply (warms the highlights) */}
               <div
-                className="absolute inset-0 bg-clay/[0.07] mix-blend-multiply"
+                className="absolute inset-0 bg-clay/[0.12] mix-blend-multiply"
+                aria-hidden
+              />
+              {/* Clay "color" blend (preserves luminance, dominantly shifts
+                  the hue toward the brand warm — the layer that finally
+                  kills the lavender). */}
+              <div
+                className="absolute inset-0 bg-clay/[0.1] mix-blend-color"
                 aria-hidden
               />
             </div>
@@ -222,7 +231,7 @@ export default async function HomePage() {
 
       {/* Ohlasy klientov — sociálny dôkaz pred záverečnou výzvou */}
       {testimonials.length > 0 && (
-        <section className="reveal mx-auto max-w-6xl scroll-mt-20 px-5 py-24 sm:py-28">
+        <section className="reveal mx-auto max-w-6xl scroll-mt-20 px-5 py-20 sm:py-24">
           <div className="max-w-2xl">
             <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay">
               <span className="h-px w-8 bg-sage/60" aria-hidden />
