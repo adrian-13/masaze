@@ -104,9 +104,12 @@ export function SiteHero({ settings }: { settings: Settings }) {
           </div>
         </div>
 
-        {/* Visual column — full-bleed to the right edge, soft "doorway"
-            curve only on the lg+ left side. */}
-        <div className="relative min-h-[60vh] overflow-hidden bg-gradient-to-b from-sand to-clay/20 shadow-2xl lg:min-h-0 lg:rounded-l-[5rem]">
+        {/* Visual column — full-bleed to the right edge of the viewport,
+            with a classic arch silhouette (rounded-t-full on lg+ so the
+            top curves into a semicircle, rounded-b-3xl softens the
+            bottom). The right edge still anchors to the viewport, only
+            the top "rises" out of the cream page. */}
+        <div className="relative min-h-[60vh] overflow-hidden bg-gradient-to-b from-sand to-clay/20 shadow-2xl lg:min-h-0 lg:rounded-t-full lg:rounded-b-3xl">
           {settings.heroImage && (
             <>
               <div
