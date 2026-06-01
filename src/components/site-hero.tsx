@@ -50,7 +50,7 @@ export function SiteHero({ settings }: { settings: Settings }) {
             >
               <Link
                 href="/rezervacia"
-                className="inline-block rounded-full bg-clay px-7 py-3 text-base font-semibold text-cream shadow-sm transition-colors hover:bg-clay-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40"
+                className="inline-flex items-center justify-center rounded-full bg-clay px-7 py-4 text-base font-semibold leading-none text-cream shadow-sm transition-colors hover:bg-clay-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40"
               >
                 Rezervujte si termín online
               </Link>
