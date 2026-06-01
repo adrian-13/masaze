@@ -149,7 +149,7 @@ export default async function HomePage() {
       </section>
 
       {/* O mne */}
-      <section id="o-mne" className="reveal scroll-mt-20 bg-sand/40 py-20 sm:py-24">
+      <section id="o-mne" className="reveal scroll-mt-20 bg-sand/40 py-24 sm:py-28">
         <div
           className={`mx-auto grid gap-x-14 gap-y-10 px-5 lg:items-center ${
             settings.aboutImage ? "max-w-5xl lg:grid-cols-[0.8fr_1fr]" : "max-w-2xl"
@@ -157,7 +157,7 @@ export default async function HomePage() {
         >
           {settings.aboutImage && (
             <div
-              className="aspect-[4/5] overflow-hidden rounded-t-full rounded-b-3xl border border-sand-dark/60 bg-sand bg-cover bg-center shadow-[0_24px_50px_-30px_rgba(0,0,0,0.35)]"
+              className="aspect-[4/5] overflow-hidden rounded-t-full rounded-b-3xl bg-sand bg-cover bg-center shadow-2xl"
               style={{ backgroundImage: `url(${settings.aboutImage})` }}
               role="img"
               aria-label={`Masáž — ${settings.businessName}`}
@@ -165,8 +165,8 @@ export default async function HomePage() {
           )}
           {/* Príbeh */}
           <div>
-            <p className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-clay">
-              <span className="h-px w-8 bg-clay/50" aria-hidden />
+            <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay">
+              <span className="h-px w-8 bg-sage/60" aria-hidden />
               {settings.aboutTitle}
             </p>
             <h2 className="mt-5 text-3xl text-bark sm:text-4xl">{settings.ownerName}</h2>
@@ -175,28 +175,29 @@ export default async function HomePage() {
             </p>
 
             {mapsUrl && (
-              <a
-                href={mapsUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="group mt-8 inline-flex items-center gap-4 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40"
-              >
-                <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-clay/10 text-clay transition-colors group-hover:bg-clay group-hover:text-cream">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
-                    <path d="M12 21s-6-5.2-6-10a6 6 0 1 1 12 0c0 4.8-6 10-6 10Z" strokeLinejoin="round" />
-                    <circle cx="12" cy="11" r="2" />
+              <div className="mt-10">
+                <p className="text-sm font-medium text-bark">{settings.address}</p>
+                <a
+                  href={mapsUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-clay transition-colors hover:text-clay-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40"
+                >
+                  Otvoriť v Google Mapách
+                  <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    aria-hidden
+                    className="transition-transform group-hover:translate-x-0.5"
+                  >
+                    <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                </span>
-                <span>
-                  <span className="block font-medium text-bark">{settings.address}</span>
-                  <span className="mt-0.5 inline-flex items-center gap-1.5 text-sm font-semibold text-clay">
-                    Otvoriť v Google Mapách
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden className="transition-transform group-hover:translate-x-0.5">
-                      <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
-                  </span>
-                </span>
-              </a>
+                </a>
+              </div>
             )}
           </div>
         </div>
