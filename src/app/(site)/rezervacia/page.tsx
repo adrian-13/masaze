@@ -34,13 +34,19 @@ export default async function ReservationPage({
   const maxDate = addDaysISO(today, rules.maxAdvanceDays);
 
   return (
-    <div className="mx-auto max-w-4xl px-5 pb-16 pt-8 sm:pt-10">
-      <h1 className="text-3xl text-bark sm:text-4xl">Online rezervácia</h1>
-      <p className="mt-3 text-stone">
-        Rezervácia je nezáväzná žiadosť — ozvem sa vám čoskoro.
-      </p>
+    <div className="mx-auto max-w-6xl px-5 pb-20 pt-12 sm:pt-16">
+      <div className="max-w-2xl">
+        <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay">
+          <span className="h-px w-8 bg-sage/60" aria-hidden />
+          Rezervácia
+        </p>
+        <h1 className="mt-5 text-3xl text-bark sm:text-4xl">Online rezervácia</h1>
+        <p className="mt-4 max-w-md text-stone">
+          Rezervácia je nezáväzná žiadosť — ozvem sa vám čoskoro.
+        </p>
+      </div>
 
-      <div className="mt-8">
+      <div className="mt-12">
         <BookingForm
           services={services}
           intro={settings.bookingIntro}

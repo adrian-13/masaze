@@ -344,10 +344,10 @@ export function BookingForm({
                       setMonthAvail(new Set());
                       setStep(2);
                     }}
-                    className={`rounded-2xl border p-5 text-left transition-all ${
+                    className={`rounded-2xl border p-6 text-left transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40 ${
                       active
-                        ? "border-clay bg-clay/5 ring-1 ring-clay"
-                        : "border-sand-dark/60 bg-cream hover:border-clay/60 hover:bg-clay/[0.03]"
+                        ? "border-clay bg-clay/[0.04]"
+                        : "border-sand-dark/40 bg-cream hover:border-clay/50 hover:bg-clay/[0.02]"
                     }`}
                   >
                     <span className="block text-lg text-bark">{service.name}</span>
@@ -379,7 +379,7 @@ export function BookingForm({
       {step === 2 && selectedService && (
         <section ref={step2Ref} className="mt-8 scroll-mt-20">
           <h2 className="text-2xl text-bark">2. Vyberte deň a čas</h2>
-          <div className="mt-4 rounded-xl bg-sand/50 px-4 py-3 text-sm text-bark">
+          <div className="mt-4 rounded-2xl border border-sand-dark/40 bg-cream/50 px-4 py-3 text-sm text-bark">
             <span className="font-medium">{selectedService.name}</span>
             <span className="text-stone">
               {" "}
@@ -427,10 +427,10 @@ export function BookingForm({
                           key={slot}
                           type="button"
                           onClick={() => setStartTime(slot)}
-                          className={`rounded-full border px-2 py-2 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40 ${
+                          className={`rounded-xl border px-2 py-2.5 text-sm font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40 ${
                             startTime === slot
                               ? "border-clay bg-clay text-cream"
-                              : "border-sand-dark bg-cream text-bark hover:border-clay"
+                              : "border-sand-dark/50 bg-cream text-bark hover:border-clay"
                           }`}
                         >
                           {slot}
@@ -448,11 +448,11 @@ export function BookingForm({
             </div>
           </div>
 
-          <div className="sticky bottom-0 z-10 -mx-5 mt-8 flex gap-3 border-t border-sand-dark/60 bg-cream/95 px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 backdrop-blur-sm sm:static sm:mx-0 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:backdrop-blur-none">
+          <div className="sticky bottom-0 z-10 -mx-5 mt-8 flex gap-3 border-t border-sand-dark/40 bg-cream/95 px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 backdrop-blur-sm sm:static sm:mx-0 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:backdrop-blur-none">
             <button
               type="button"
               onClick={() => setStep(1)}
-              className="rounded-full border border-sand-dark px-6 py-2.5 text-sm font-semibold text-bark hover:bg-sand"
+              className="inline-flex items-center justify-center rounded-2xl border border-sand-dark/60 px-6 py-3.5 text-sm font-semibold leading-none text-bark transition-colors hover:bg-sand focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40"
             >
               Späť
             </button>
@@ -460,7 +460,7 @@ export function BookingForm({
               type="button"
               disabled={!startTime}
               onClick={() => setStep(3)}
-              className="flex-1 rounded-full bg-clay px-6 py-2.5 text-sm font-semibold text-cream transition-colors hover:bg-clay-dark disabled:cursor-not-allowed disabled:opacity-40 sm:flex-none"
+              className="inline-flex flex-1 items-center justify-center rounded-2xl bg-clay px-6 py-3.5 text-sm font-semibold leading-none text-cream shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors hover:bg-clay-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40 disabled:cursor-not-allowed disabled:opacity-40 sm:flex-none"
             >
               Pokračovať
             </button>
@@ -473,7 +473,7 @@ export function BookingForm({
         <section ref={step3Ref} className="mt-8 scroll-mt-20">
           <h2 className="text-2xl text-bark">3. Vaše údaje</h2>
 
-          <div className="mt-4 rounded-xl bg-sand/50 px-4 py-3 text-sm text-bark">
+          <div className="mt-4 rounded-2xl border border-sand-dark/40 bg-cream/50 px-4 py-3 text-sm text-bark">
             <span className="font-medium">{selectedService.name}</span>
             <span className="text-stone">
               {" "}
@@ -546,18 +546,18 @@ export function BookingForm({
               </p>
             )}
 
-            <div className="sticky bottom-0 z-10 -mx-5 mt-4 flex gap-3 border-t border-sand-dark/60 bg-cream/95 px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 backdrop-blur-sm sm:static sm:col-span-2 sm:mx-0 sm:mt-2 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:backdrop-blur-none">
+            <div className="sticky bottom-0 z-10 -mx-5 mt-4 flex gap-3 border-t border-sand-dark/40 bg-cream/95 px-5 pb-[max(1rem,env(safe-area-inset-bottom))] pt-4 backdrop-blur-sm sm:static sm:col-span-2 sm:mx-0 sm:mt-2 sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:backdrop-blur-none">
               <button
                 type="button"
                 onClick={() => setStep(2)}
-                className="rounded-full border border-sand-dark px-6 py-2.5 text-sm font-semibold text-bark hover:bg-sand"
+                className="inline-flex items-center justify-center rounded-2xl border border-sand-dark/60 px-6 py-3.5 text-sm font-semibold leading-none text-bark transition-colors hover:bg-sand focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40"
               >
                 Späť
               </button>
               <button
                 type="submit"
                 disabled={submitting}
-                className="flex-1 rounded-full bg-clay px-7 py-2.5 text-sm font-semibold text-cream transition-colors hover:bg-clay-dark disabled:opacity-50 sm:flex-none"
+                className="inline-flex flex-1 items-center justify-center rounded-2xl bg-clay px-7 py-3.5 text-sm font-semibold leading-none text-cream shadow-[0_1px_2px_rgba(0,0,0,0.04)] transition-colors hover:bg-clay-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40 disabled:opacity-50 sm:flex-none"
               >
                 {submitting ? "Odosielam…" : "Odoslať rezerváciu"}
               </button>
@@ -591,7 +591,7 @@ export function BookingForm({
               <button
                 type="button"
                 onClick={() => setConfirmLeaveTo(null)}
-                className="rounded-full border border-sand-dark px-5 py-2 text-sm font-semibold text-bark transition-colors hover:bg-sand"
+                className="inline-flex items-center justify-center rounded-2xl border border-sand-dark/60 px-5 py-2.5 text-sm font-semibold leading-none text-bark transition-colors hover:bg-sand focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40"
                 autoFocus
               >
                 Zostať
@@ -599,7 +599,7 @@ export function BookingForm({
               <button
                 type="button"
                 onClick={() => leaveTo(confirmLeaveTo)}
-                className="rounded-full bg-clay px-5 py-2 text-sm font-semibold text-cream transition-colors hover:bg-clay-dark"
+                className="inline-flex items-center justify-center rounded-2xl bg-clay px-5 py-2.5 text-sm font-semibold leading-none text-cream transition-colors hover:bg-clay-dark focus:outline-none focus-visible:ring-2 focus-visible:ring-clay/40"
               >
                 Odísť
               </button>
