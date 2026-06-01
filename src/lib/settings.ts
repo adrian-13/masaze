@@ -12,7 +12,7 @@ export const DEFAULT_SETTINGS = {
     "Profesionálne masáže v príjemnom a diskrétnom prostredí. Ako vyštudovaná a certifikovaná masérka sa zameriavam na individuálny prístup a starostlivosť, ktorá pomáha telu regenerovať a mysli nájsť rovnováhu.",
   aboutTitle: "O mne",
   aboutText:
-    "Volám sa Patrícia a venujem sa masážam ako vyštudovaná a certifikovaná masérka. Verím, že kvalitná masáž dokáže uvoľniť nielen telo, ale aj myseľ. Ku každému klientovi pristupujem individuálne a s rešpektom k jeho potrebám.",
+    "Volám sa Patrícia a ako vyštudovaná a certifikovaná masérka pomáham svojim klientom zmierniť napätie, podporiť regeneráciu a nájsť chvíľu oddychu v každodennom zhone.\n\nPri každej masáži kladiem dôraz na individuálny prístup, príjemnú atmosféru a rešpekt k potrebám každého klienta. Mojím cieľom je, aby ste odchádzali uvoľnenejší, spokojnejší a plní novej energie.",
   phone: "+421 904 270 869",
   email: "kontakt@masazepatricia.sk",
   address: "Diviaky nad Nitricou 201",

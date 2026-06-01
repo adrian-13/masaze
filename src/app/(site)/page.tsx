@@ -185,9 +185,11 @@ export default async function HomePage() {
             <p className="mt-2 text-xs font-medium uppercase tracking-[0.18em] text-stone">
               Certifikovaná masérka · Diviaky nad Nitricou
             </p>
-            <p className="mt-6 whitespace-pre-line text-lg leading-relaxed text-stone">
-              {settings.aboutText}
-            </p>
+            <div className="mt-6 space-y-5 text-lg leading-relaxed text-stone">
+              {settings.aboutText.split(/\n\n+/).map((para, i) => (
+                <p key={i}>{para}</p>
+              ))}
+            </div>
 
             {mapsUrl && (
               <div className="mt-8 border-t border-sand-dark/40 pt-6">
