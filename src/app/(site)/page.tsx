@@ -152,16 +152,28 @@ export default async function HomePage() {
       <section id="o-mne" className="reveal scroll-mt-20 bg-sand/40 py-24 sm:py-28">
         <div
           className={`mx-auto grid gap-x-14 gap-y-10 px-5 lg:items-center ${
-            settings.aboutImage ? "max-w-5xl lg:grid-cols-[0.8fr_1fr]" : "max-w-2xl"
+            settings.aboutImage ? "max-w-5xl lg:grid-cols-[1fr_1.05fr]" : "max-w-2xl"
           }`}
         >
           {settings.aboutImage && (
-            <div
-              className="aspect-[4/5] overflow-hidden rounded-t-full rounded-b-3xl bg-sand bg-cover bg-center shadow-2xl"
-              style={{ backgroundImage: `url(${settings.aboutImage})` }}
-              role="img"
-              aria-label={`Masáž — ${settings.businessName}`}
-            />
+            <div className="relative aspect-[3/4] overflow-hidden rounded-t-full rounded-b-3xl bg-sand shadow-2xl">
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{
+                  backgroundImage: `url(${settings.aboutImage})`,
+                  // Warm grade — same vocabulary as the hero so the two
+                  // photos sit on the same material register, no cool blue
+                  // / purple cast fighting the oat palette.
+                  filter: "saturate(0.78) brightness(1.06) contrast(0.94) sepia(0.2)",
+                }}
+                role="img"
+                aria-label={`Masáž — ${settings.businessName}`}
+              />
+              <div
+                className="absolute inset-0 bg-clay/[0.07] mix-blend-multiply"
+                aria-hidden
+              />
+            </div>
           )}
           {/* Príbeh */}
           <div>
@@ -170,13 +182,16 @@ export default async function HomePage() {
               {settings.aboutTitle}
             </p>
             <h2 className="mt-5 text-3xl text-bark sm:text-4xl">{settings.ownerName}</h2>
+            <p className="mt-2 text-xs font-medium uppercase tracking-[0.18em] text-stone">
+              Certifikovaná masérka · Diviaky nad Nitricou
+            </p>
             <p className="mt-6 whitespace-pre-line text-lg leading-relaxed text-stone">
               {settings.aboutText}
             </p>
 
             {mapsUrl && (
-              <div className="mt-10">
-                <p className="text-sm font-medium text-bark">{settings.address}</p>
+              <div className="mt-8 border-t border-sand-dark/40 pt-6">
+                <p className="text-sm text-stone">{settings.address}</p>
                 <a
                   href={mapsUrl}
                   target="_blank"
