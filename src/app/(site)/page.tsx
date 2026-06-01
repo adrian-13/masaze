@@ -217,7 +217,7 @@ export default async function HomePage() {
             {testimonials.map((t) => (
               <figure key={t.id} className="flex flex-col items-start">
                 <blockquote className="text-base leading-relaxed text-bark sm:text-lg">
-                  „{t.text}"
+                  {`„${t.text}"`}
                 </blockquote>
                 <figcaption className="mt-5 text-sm font-medium text-stone">
                   — {t.author}
