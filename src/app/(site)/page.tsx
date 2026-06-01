@@ -50,23 +50,19 @@ export default async function HomePage() {
     <>
       <SiteHero settings={settings} />
 
-      {/* Ako to funguje — bez nadpisu, vzdušné */}
-      <section className="reveal mx-auto max-w-5xl px-5 py-20 sm:py-24">
-        <ol className="relative grid gap-y-12 sm:grid-cols-3">
-          <span
-            aria-hidden
-            className="dotted-path absolute left-[16.66%] right-[16.66%] top-[17px] hidden h-1 text-clay/20 sm:block"
-          />
-          {STEPS.map((step) => (
-            <li
-              key={step.title}
-              className="relative flex flex-col items-center px-4 text-center"
-            >
-              <span className="inline-flex bg-cream px-3">
-                <LeafMark className="h-9 w-9 text-sage" />
+      {/* Ako to funguje — editoriálne číslovky, žiadny ornament */}
+      <section className="reveal mx-auto max-w-5xl px-5 py-24 sm:py-28">
+        <ol className="grid gap-y-14 sm:grid-cols-3 sm:gap-x-10">
+          {STEPS.map((step, i) => (
+            <li key={step.title} className="flex flex-col items-center px-2 text-center">
+              <span
+                className="font-serif text-5xl font-light leading-none text-clay/40 sm:text-6xl"
+                aria-hidden
+              >
+                {String(i + 1).padStart(2, "0")}
               </span>
-              <h3 className="mt-5 text-xl text-bark">{step.title}</h3>
-              <p className="mt-2 max-w-[15rem] text-sm leading-relaxed text-stone">
+              <h3 className="mt-6 text-xl text-bark">{step.title}</h3>
+              <p className="mt-3 max-w-[17rem] text-sm leading-relaxed text-stone">
                 {step.text}
               </p>
             </li>
@@ -74,55 +70,66 @@ export default async function HomePage() {
         </ol>
       </section>
 
-      {/* Služby — elegantný cenník (zoznam, nie karty) */}
-      <section id="sluzby" className="reveal mx-auto max-w-5xl scroll-mt-20 px-5 py-20 sm:py-24">
+      {/* Služby — editoriálny cenník: celý riadok je Link s textovým CTA */}
+      <section id="sluzby" className="reveal mx-auto max-w-5xl scroll-mt-20 px-5 py-24 sm:py-28">
         <div className="max-w-2xl">
-          <p className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.2em] text-clay">
-            <span className="h-px w-8 bg-clay/50" aria-hidden />
+          <p className="flex items-center gap-3 text-[11px] font-semibold uppercase tracking-[0.22em] text-clay">
+            <span className="h-px w-8 bg-sage/60" aria-hidden />
             Ponuka
           </p>
-          <h2 className="mt-4 text-3xl text-bark sm:text-4xl">Služby a cenník</h2>
-          <p className="mt-3 text-stone">
+          <h2 className="mt-5 text-3xl text-bark sm:text-4xl">Služby a cenník</h2>
+          <p className="mt-4 max-w-md text-stone">
             Vyberte si masáž, ktorá vám sadne. Termín si jednoducho zarezervujete online.
           </p>
         </div>
 
         {services.length === 0 ? (
-          <p className="mt-10 text-stone">Služby budú čoskoro doplnené.</p>
+          <p className="mt-12 text-stone">Služby budú čoskoro doplnené.</p>
         ) : (
-          <ul className="mt-12 border-b border-sand-dark/50">
+          <ul className="mt-14 border-b border-sand-dark/50">
             {services.map((service) => (
-              <li
-                key={service.id}
-                className="group flex flex-col gap-6 border-t border-sand-dark/50 py-8 sm:flex-row sm:items-center sm:justify-between sm:gap-10 sm:py-7"
-              >
-                <div className="sm:max-w-md">
-                  <h3 className="text-xl text-bark transition-colors group-hover:text-clay">
-                    {service.name}
-                  </h3>
-                  {service.description && (
-                    <p className="mt-2 text-sm leading-relaxed text-stone">
-                      {service.description}
-                    </p>
-                  )}
-                </div>
-
-                <div className="flex w-full shrink-0 items-center justify-between gap-6 sm:w-auto sm:justify-start">
-                  <div className="leading-tight sm:text-right">
-                    <p className="font-serif text-2xl text-bark">
-                      {formatPrice(service.priceEur)}
-                    </p>
-                    <p className="mt-0.5 text-sm text-stone">
-                      {formatDuration(service.durationMin)}
-                    </p>
+              <li key={service.id} className="border-t border-sand-dark/50">
+                <Link
+                  href={`/rezervacia?service=${service.id}`}
+                  className="group flex flex-col gap-5 py-9 transition-colors hover:bg-sand/40 sm:flex-row sm:items-center sm:justify-between sm:gap-10 sm:py-10 -mx-2 px-2 sm:-mx-3 sm:px-3"
+                >
+                  <div className="sm:max-w-md">
+                    <h3 className="text-2xl text-bark transition-colors group-hover:text-clay">
+                      {service.name}
+                    </h3>
+                    {service.description && (
+                      <p className="mt-2 text-sm leading-relaxed text-stone">
+                        {service.description}
+                      </p>
+                    )}
                   </div>
-                  <Link
-                    href={`/rezervacia?service=${service.id}`}
-                    className="rounded-full border border-clay px-5 py-2 text-sm font-semibold text-clay transition-colors hover:bg-clay hover:text-cream"
-                  >
-                    Rezervovať
-                  </Link>
-                </div>
+
+                  <div className="flex w-full shrink-0 items-center justify-between gap-8 sm:w-auto sm:justify-start">
+                    <div className="leading-tight sm:text-right">
+                      <p className="font-serif text-xl text-bark">
+                        {formatPrice(service.priceEur)}
+                      </p>
+                      <p className="mt-0.5 text-xs uppercase tracking-[0.15em] text-stone">
+                        {formatDuration(service.durationMin)}
+                      </p>
+                    </div>
+                    <span className="inline-flex items-center gap-1.5 text-sm font-medium text-clay transition-colors group-hover:text-clay-dark">
+                      Rezervovať
+                      <svg
+                        width="14"
+                        height="14"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        aria-hidden
+                        className="transition-transform group-hover:translate-x-0.5"
+                      >
+                        <path d="M5 12h14M13 6l6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </span>
+                  </div>
+                </Link>
               </li>
             ))}
           </ul>
